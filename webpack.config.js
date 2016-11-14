@@ -34,7 +34,7 @@ module.exports = {
   // devServer 則是 webpack-dev-server 設定
   devServer: {
     inline: true,
-    port: 8089,
+    port: 8080,
   },
   // plugins 放置所使用的外掛
   plugins: [HTMLWebpackPluginConfig],
