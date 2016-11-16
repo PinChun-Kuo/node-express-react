@@ -1,3 +1,6 @@
+var webpack = require('webpack');
+// var WebpackDevServer = require('webpack-dev-server');
+
 // 這邊使用 HtmlWebpackPlugin，將 bundle 好的 <script> 插入到 body。${__dirname} 為 ES6 語法對應到 __dirname
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
