@@ -12,7 +12,7 @@ var app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'html');
+// app.set('view engine', 'jade');
 
 // setting for using Node.js + Express to host a static html
 app.engine('html', require('ejs').renderFile);
