@@ -7,7 +7,7 @@ module.exports = function(config) {
         frameworks: ['mocha'],
 
         // A list of browsers to launch and capture.
-        browsers: ['Chrome', 'PhantomJS'],
+        browsers: ['Chrome'],
 
         //  How long will Karma wait for a message from a browser before disconnecting from it (in ms).
         browserNoActivityTimeout: 30000,

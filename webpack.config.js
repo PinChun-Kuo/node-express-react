@@ -32,11 +32,11 @@ module.exports = {
         inline: true,
         port: 8080,
     },
-    // plugins 放置所使用的外掛
+    // plugins 放置所使用的外掛    process.env.NODE_ENV
     plugins: [HTMLWebpackPluginConfig,
         new webpack.DefinePlugin({
             "process.env": {
-                NODE_ENV: JSON.stringify("production")
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
             }
         })
     ],
