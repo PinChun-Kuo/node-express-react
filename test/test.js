@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import assert from 'assert';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import TableContent from '../public/javascripts/tableContent';
@@ -16,73 +15,49 @@ const dataList = [
 var instance, dom;
 var Wrapper = wrapper();
 
-describe('Render data list', () => {
+describe('Render table', () => {
     beforeEach(function() {
         instance = ReactTestUtils.renderIntoDocument(
-          <Wrapper>
-            <TableContent dataList = {dataList} />
-          </Wrapper>
+            <Wrapper>
+                <TableContent dataList = {dataList} />
+            </Wrapper>
         );
 
-        dom = ReactDOM.findDOMNode(instance);
-
-        // console.log('\n\n---instance--- : ', instance);
-        // console.log('\n\n---dom1--- : ', dom);
-        // console.log('\n\n---dom2--- : ', dom.childNodes[0].tagName);
-        // console.log('\n\n---dom3--- : ', dom.childNodes[0].childNodes[1]);
-        // console.log('\n\n---dom4--- : ', dom.childNodes[0].childNodes[0].tagName);
-        // console.log('\n\n---dom5--- : ', dom.childNodes[0].childNodes[1].tagName);
-        // console.log('\n\n---dom6--- : ', dom.childNodes[0].childNodes[1].childNodes[2]);
+        // dom = ReactDOM.findDOMNode(instance);
     });
 
-    it('Should render table DOM', done => {
+    it('Should render table DOM correctly.', () => {
         const table = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'table');
+        (table.className.indexOf('table table-bordered table-striped table-hover') > -1).should.be.ok;
         should.exist(table);
-        // assert.equal(dom.childNodes[0].tagName, 'TABLE');
-        done();
     });
 
-    it('Should have 24 items', done => {
-        console.log('\n\n---isCompositeComponent--- : ', ReactTestUtils.isCompositeComponent(instance));
-        const length = ReactTestUtils.scryRenderedDOMComponentsWithClass(instance, 'center').length;
-        assert.equal(length, 24);
-        done();
+    it('Should render thead DOM correctly.', () => {
+        const thead = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'thead');
+        (thead.className.indexOf('thead-inverse') > -1).should.be.ok;
+        should.exist(thead);
     });
 
-    it('Should have 6 table headers.', done => {
-        const THNumber = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'th').length;
-        assert.equal(THNumber, 6);
-        done();
+    it('Should render tbody DOM correctly.', () => {
+        const tbody = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'tbody');
+        should.exist(tbody);
     });
 
-    it('Compare content of table header.', done => {
+    it('Should render table correctly.', () => {
         for (var i = 0; i < dataList[0].length; i++) {
-            let temp1 = dom.childNodes[0].childNodes[0].childNodes[0].childNodes[i].childNodes[0].textContent;
-            let temp2 = dataList[0][i];
-            // console.log('temp1 : ', temp1);
-            // console.log('temp2 : ', temp2);
-            // console.log('type of temp1 : ', typeof temp1);
-            // console.log('type of temp2 : ', typeof temp2);
-            // console.log("--------compare : ", temp1 == temp2);
-            assert.equal(temp1, temp2);
+            const th = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'th');
+            (th[i].className.indexOf('center') > -1).should.be.ok;
+            th[i].textContent.should.be.equal(dataList[0][i]);
         }
-        done();
-    });
 
-    it('Should have 18 table data.', done => {
-        const TDNumber = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'td').length;
-        assert.equal(TDNumber, 18);
-        done();
-    });
-
-    it('Compare content of table data.', done => {
         for (var i = 1; i < dataList.length; i++) {
             for (var j = 0; j < dataList[i].length; j++) {
-                let temp1 = dom.childNodes[0].childNodes[1].childNodes[i-1].childNodes[j].childNodes[0].textContent;
-                let temp2 = dataList[i][j];
-                assert.equal(temp1, temp2);
+                const td = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'td');
+                for (var variable in td) {
+                    (td[variable].className.indexOf('center') > -1).should.be.ok;
+                    (td[variable].textContent == dataList[i][j]).should.be.ok;
+                }
             }
         }
-        done();
     });
 });

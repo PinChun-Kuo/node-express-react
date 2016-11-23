@@ -7,7 +7,7 @@ module.exports = function (props) {
 
   for (var i = 1; i < dataList.length; i++) {
     const tableData = props.dataList[i].map((number) => <td className='center'>{number}</td>);
-    tableDatas.push(<tr>{tableData}</tr>);
+    tableDatas.push(<tr key={dataList[i][0]}>{tableData}</tr>);
   }
 
   return (

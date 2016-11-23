@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import TableContent from './tableContent';
+
+import wrapper from '../../test/wrapper'
+
+console.log('wrapper : ', wrapper);
 
 const dataList = [
     ['Seq', 'Status', 'Category', 'Title', 'Owner', 'Priority'],
