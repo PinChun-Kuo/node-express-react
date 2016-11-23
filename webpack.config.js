@@ -11,12 +11,12 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
     // 檔案起始點從 entry 進入，因為是陣列所以也可以是多個檔案
     entry: {
-        'index': './public/javascripts/index.js',
+        'index': './public/javascripts/index.js'
     },
     // output 是放入產生出來的結果的相關參數
     output: {
         path: `${__dirname}/dist`,
-        filename: '[name].js',
+        filename: '[name].js'
     },
     module: {
         // loaders 則是放欲使用的 loaders，在這邊是使用 babel-loader 將所有 .js（這邊用到正則式）相關檔案（排除了 npm 安裝的套件位置 node_modules）
@@ -24,15 +24,19 @@ module.exports = {
         loaders: [{
             test: [/\.js$/, /\.jsx$/],
             exclude: /node_modules/,
-            loader: 'babel-loader',
-        }, ],
+            loader: 'babel-loader'
+        }, {
+            test: /\.css$/,
+            exclude: /node_modules/,
+            loader: "style-loader!css-loader"
+        }]
     },
     // devServer 則是 webpack-dev-server 設定
     devServer: {
         inline: true,
         port: 8080,
     },
-    // plugins 放置所使用的外掛    process.env.NODE_ENV
+    // plugins 放置所使用的外掛
     plugins: [HTMLWebpackPluginConfig,
         new webpack.DefinePlugin({
             "process.env": {
