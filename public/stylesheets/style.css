@@ -7,18 +7,78 @@ body {
 }
 
 #table {
-    width: 1600px;
-    margin-top: 15px;
+  width: auto;
+  margin-top: 15px;
+}
+
+.table-bordered {
+  border: solid #fff 0px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.Seq, .Priority {
+  width: 150px;
+}
+
+.Status, .Category, .Title, .Owner {
+  width: 250px;
+}
+
+.table .editBtn, .table .deleteBtn {
+  width: 80px;
+  background: #fff;
+  border: solid #fff 0px;
 }
 
 .center {
     text-align: center;
 }
 
-button {
-    padding: 5px 20px;
-    border: solid #000 1px;
-    border-radius: 4px;
-    font-size: 16px;
-    letter-spacing: 4px;
+button, form #submitBtn {
+  padding: 5px 20px;
+  border: solid #000 1px;
+  border-radius: 4px;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+
+#closeBtn {
+  width: 22px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  border-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+
+}
+
+form #submitBtn {
+  width: 80px;
+  position: absolute;
+  right: calc(50% - 40px);
+  bottom: 25px;
+}
+
+form div {
+  margin: 15px 5px;
+}
+
+form div input {
+  width: 250px;
+  border-radius: 2px;
+  letter-spacing: 2px;
+  text-indent: 8px;
+}
+
+/*-- modify react-modal css --*/
+.ReactModal__Content, .ReactModal__Content--after-open {
+  position: absolute;
+  width: 700px;
+  height: 380px;
+  margin-left: calc(50% - 390px);
+  margin-top: 50px;
 }
