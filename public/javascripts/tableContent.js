@@ -17,7 +17,7 @@ class TableContent extends React.Component  {
     this.state = {
       open: false, // pop modal open or not
       dataList: this.props.dataList,
-      action: 0, // 0: add, 1: edit
+      action: 'add', // add or edit
       modalTitle: ' ', // pop modal title
       editIndex: 0, // index of edited data
       statusValue: '',
@@ -31,7 +31,7 @@ class TableContent extends React.Component  {
   addClick () {
     this.setState({
       open: true,
-      action: 0,
+      action: 'add',
       modalTitle: 'Add Item',
     });
   }
@@ -39,7 +39,7 @@ class TableContent extends React.Component  {
   editClick(index) {
     this.setState({
       open: true,
-      action: 1,
+      action: 'edit',
       modalTitle: 'Edit Item',
       editIndex: index,
       statusValue: this.state.dataList[index][1],
@@ -89,19 +89,19 @@ class TableContent extends React.Component  {
 
   handleSubmit (e) {
     e.preventDefault();
-    let newItem = [], empty = 0;
+    let newItem = [], inputEmpty = false;
 
     for (var i = 0; i < e.target.length - 1; i++) {
       if(e.target[i].value === '') {
-        empty = 1;
+        inputEmpty = true;
       }
       newItem.push(e.target[i].value);
     }
 
-    if(empty === 1) {     // check input
+    if(inputEmpty) {     // check input empty or not
       alert('欄位不得為空')
     } else {
-      if(!this.state.action) {     // add Item
+      if(this.state.action == 'add') {     // add Item
         newItem.splice(0, 0, this.state.dataList.length);
         this.state.dataList.push(newItem);
       } else {     // edit Item
