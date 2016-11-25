@@ -145,35 +145,7 @@ class TableContent extends React.Component  {
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
-
-        <Modal isOpen={this.state.open}>
-          <h1>{this.state.modalTitle}</h1>
-          <button id='closeBtn' onClick={this.closeModal}>X</button>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              Status : &nbsp;
-              <input type='text' value={this.state.statusValue} onChange={this.statusChange} /><br/>
-            </div>
-            <div>
-              Category : &nbsp;
-              <input type='text' value={this.state.categoryValue} onChange={this.categoryChange} /><br/>
-            </div>
-            <div>
-              Title : &nbsp;
-              <input type='text' value={this.state.titleValue} onChange={this.titleChange} /><br/>
-            </div>
-            <div>
-              Owner : &nbsp;
-              <input type='text' value={this.state.ownerValue} onChange={this.ownerChange} /><br/>
-            </div>
-            <div>
-              Priority : &nbsp;
-              <input type='text' value={this.state.priorityValue} onChange={this.priorityChange} /><br/>
-            </div>
-            <input id='submitBtn' type="submit" />
-          </form>
-        </Modal>
-
+        <PopModal target={this}/>
         <table id="table" className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
@@ -189,6 +161,43 @@ class TableContent extends React.Component  {
   }
 }
 
+function PopModal(props) {
+  let target = props.target;
+
+  // console.log("target: ", target);
+
+  return(
+    <Modal isOpen={target.state.open}>
+      <h1>{target.state.modalTitle}</h1>
+      <button id='closeBtn' onClick={target.closeModal}>X</button>
+      <form onSubmit={target.handleSubmit}>
+        <div>
+          Status : &nbsp;
+          <input type='text' value={target.state.statusValue} onChange={target.statusChange} /><br/>
+        </div>
+        <div>
+          Category : &nbsp;
+          <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} /><br/>
+        </div>
+        <div>
+          Title : &nbsp;
+          <input type='text' value={target.state.titleValue} onChange={target.titleChange} /><br/>
+        </div>
+        <div>
+          Owner : &nbsp;
+          <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} /><br/>
+        </div>
+        <div>
+          Priority : &nbsp;
+          <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} /><br/>
+        </div>
+        <input id='submitBtn' type="submit" />
+      </form>
+    </Modal>
+  );
+}
+
 module.exports = {
-  TableContent: TableContent
+  TableContent: TableContent,
+  PopModal: PopModal
 }

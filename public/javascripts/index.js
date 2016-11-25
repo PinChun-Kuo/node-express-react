@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import TableContent from './tableContent';
 import style from '../stylesheets/style.css'
 
-// console.log("TableContent : ", TableContent);
-
 const dataList = [
   ['Seq', 'Status', 'Category', 'Title', 'Owner', 'Priority'],
   [1, 'Open', 'category1', 'title1', 'Allen', 'P1'],
@@ -18,3 +16,8 @@ ReactDOM.render(
   <TableContent.TableContent dataList = {dataList} />,
   document.getElementById('root')
 );
+
+// ReactDOM.render(
+//   <Wrapper><TableContent.TableContent dataList = {dataList}/></Wrapper>,
+//   document.getElementById('root')
+// );
