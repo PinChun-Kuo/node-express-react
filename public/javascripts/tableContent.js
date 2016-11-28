@@ -31,7 +31,7 @@ class TableContent extends React.Component  {
     this.setState({
       show: true,
       action: 'add',
-      modalTitle: 'Add Item',
+      modalTitle: 'Add Item'
     });
   }
 
@@ -171,26 +171,26 @@ function PopModal(props) {
           <button className='closeBtn' onClick={target.closeModal}>X</button>
           <form onSubmit={target.handleSubmit}>
             <div>
-              Status : &nbsp;
-              <input type='text' value={target.state.statusValue} onChange={target.statusChange} /><br/>
+              &nbsp;Status : &nbsp;
+              <input type='text' value={target.state.statusValue} onChange={target.statusChange} />
             </div>
             <div>
-              Category : &nbsp;
-              <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} /><br/>
+              &nbsp;Category : &nbsp;
+              <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} />
             </div>
             <div>
-              Title : &nbsp;
-              <input type='text' value={target.state.titleValue} onChange={target.titleChange} /><br/>
+              &nbsp;Title : &nbsp;
+              <input type='text' value={target.state.titleValue} onChange={target.titleChange} />
             </div>
             <div>
-              Owner : &nbsp;
-              <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} /><br/>
+              &nbsp;Owner : &nbsp;
+              <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} />
             </div>
             <div>
-              Priority : &nbsp;
-              <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} /><br/>
+              &nbsp;Priority : &nbsp;
+              <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} />
             </div>
-            <input className='submitBtn' type="submit" />
+            <input className='submitBtn' type="submit" value='submit'/>
           </form>
         </div>
       </div>

@@ -56,10 +56,13 @@ body {
         top: 100px;
         background-color: #fff;
         width: 700px;
-        height: 350px;
+        height: 400px;
         padding: 10px 20px;
         border: 1px solid #444444;
         border-radius: 3px;
+        h1 {
+          font-style: italic;
+        }
         .closeBtn {
           width: 22px;
           position: absolute;
@@ -80,7 +83,7 @@ body {
             }
           }
           .submitBtn {
-            width: 80px;
+            width: 120px;
             position: absolute;
             right: calc(50% - 40px);
             bottom: 25px;
