@@ -4,7 +4,6 @@ import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from './wrapper';
 import TableContent from '../public/javascripts/tableContent';
-import Modal from 'react-modal';
 
 const dataList = [
   ['Seq', 'Status', 'Category', 'Title', 'Owner', 'Priority'],
