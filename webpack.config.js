@@ -28,7 +28,10 @@ module.exports = {
         }, {
             test: /\.css$/,
             exclude: /node_modules/,
-            loader: "style-loader!css-loader"
+            loader: 'style-loader!css-loader'
+        }, {
+            test: /\.s[a|c]ss$/,
+            loader: 'style!css!sass'
         }]
     },
     // devServer 則是 webpack-dev-server 設定

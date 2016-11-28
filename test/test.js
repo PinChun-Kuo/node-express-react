@@ -4,6 +4,7 @@ import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from './wrapper';
 import TableContent from '../public/javascripts/tableContent';
+import Modal from 'react-modal';
 
 const dataList = [
   ['Seq', 'Status', 'Category', 'Title', 'Owner', 'Priority'],
@@ -13,13 +14,9 @@ const dataList = [
 ];
 
 const popModalData = {
-  props: dataList,
   state: {
-    open: true, // pop modal open or not
-    dataList: dataList,
-    action: 'add', // add or edit
-    modalTitle: ' ', // pop modal title
-    editIndex: 0, // index of edited data
+    show: true, // pop modal open or not
+    modalTitle: '', // pop modal title
     statusValue: '',
     categoryValue: '',
     titleValue: '',
@@ -39,8 +36,6 @@ describe('public/javascripts/tableContent.js Spec', () => {
           <TableContent.TableContent dataList = {dataList} />
         </Wrapper>
       );
-
-      // console.log('\n\n----- instance : ', instance);
     });
 
     it('Should render button DOM correctly.', () => {
@@ -129,23 +124,51 @@ describe('public/javascripts/tableContent.js Spec', () => {
       );
 
       // console.log('\n\n----- modalInstance : ', modalInstance);
+      // console.log('\n\n isDOMComponent ', ReactTestUtils.isDOMComponent(modalInstance));
+      // console.log('\n\n isCompositeComponent ', ReactTestUtils.isCompositeComponent(modalInstance));
+      // var dom = ReactDOM.findDOMNode(modalInstance);
+      // console.log('\n\n----- dom : ', dom);
+    });
+
+    it('Should render modalBackground DOM correctly.', () => {
+      const modalBackground = ReactTestUtils.findRenderedDOMComponentWithClass(modalInstance, 'modalBackground');
+      modalBackground.tagName.should.be.equal('DIV');
+      should.exist(modalBackground);
+    });
+
+    it('Should render modalBox DOM correctly.', () => {
+      const modalBox = ReactTestUtils.findRenderedDOMComponentWithClass(modalInstance, 'modalBox');
+      modalBox.tagName.should.be.equal('DIV');
+      should.exist(modalBox);
     });
 
     it('Should render h1 DOM correctly.', () => {
-      const h1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'h1');
-      console.log('\n\n----- h1 : ', h1);
+      const h1 = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'h1');
       should.exist(h1);
     });
 
-    it('Should render closeBtn DOM correctly.', () => {
-      const closeBtn = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'button');
-      console.log('\n\n----- closeBtn : ', closeBtn);
+    it('Should render close button DOM correctly.', () => {
+      const closeBtn = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'button');
+      (closeBtn.className.indexOf('closeBtn')).should.be.greaterThan(-1);
       should.exist(closeBtn);
     });
 
-    it('Should render form DOM correctly.', () => {
-      const form = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'form');
-      console.log('\n\n----- form : ', form);
+    it('Should render submit button DOM correctly.', () => {
+      const submitBtn = ReactTestUtils.findRenderedDOMComponentWithClass(modalInstance, 'submitBtn');
+      submitBtn.tagName.should.be.equal('INPUT');
+      should.exist(submitBtn);
+    });
+
+    it('Should render input DOM correctly.', () => {
+      const form = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'input');
+      form.length.should.be.equal(dataList[0].length);
+      for (var i = 0; i < form.length; i++) {
+        if(i === form.length-1) {
+          form[i].type.should.be.equal('submit');
+        } else {
+          form[i].type.should.be.equal('text');
+        }
+      }
       should.exist(form);
     });
   });

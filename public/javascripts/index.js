@@ -16,8 +16,3 @@ ReactDOM.render(
   <TableContent.TableContent dataList = {dataList} />,
   document.getElementById('root')
 );
-
-// ReactDOM.render(
-//   <Wrapper><TableContent.TableContent dataList = {dataList}/></Wrapper>,
-//   document.getElementById('root')
-// );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 
 class TableContent extends React.Component  {
   constructor(props) {
@@ -15,7 +14,7 @@ class TableContent extends React.Component  {
     this.priorityChange = this.priorityChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      open: false, // pop modal open or not
+      show: false, // pop modal show or not
       dataList: this.props.dataList,
       action: 'add', // add or edit
       modalTitle: ' ', // pop modal title
@@ -30,7 +29,7 @@ class TableContent extends React.Component  {
 
   addClick () {
     this.setState({
-      open: true,
+      show: true,
       action: 'add',
       modalTitle: 'Add Item',
     });
@@ -38,7 +37,7 @@ class TableContent extends React.Component  {
 
   editClick(index) {
     this.setState({
-      open: true,
+      show: true,
       action: 'edit',
       modalTitle: 'Edit Item',
       editIndex: index,
@@ -58,7 +57,7 @@ class TableContent extends React.Component  {
 
   closeModal (e) {
     this.setState({
-      open: false,
+      show: false,
       statusValue: '',
       categoryValue: '',
       titleValue: '',
@@ -113,7 +112,7 @@ class TableContent extends React.Component  {
       }
 
       this.setState({
-        open: false,
+        show: false,
         dataList: this.state.dataList,
         statusValue: '',
         categoryValue: '',
@@ -146,7 +145,7 @@ class TableContent extends React.Component  {
       <div>
         <button onClick={this.addClick}>Add</button>
         <PopModal target={this}/>
-        <table id="table" className='table table-bordered table-striped table-hover'>
+        <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
               {tableHead}
@@ -164,37 +163,41 @@ class TableContent extends React.Component  {
 function PopModal(props) {
   let target = props.target;
 
-  // console.log("target: ", target);
-
-  return(
-    <Modal isOpen={target.state.open}>
-      <h1>{target.state.modalTitle}</h1>
-      <button id='closeBtn' onClick={target.closeModal}>X</button>
-      <form onSubmit={target.handleSubmit}>
-        <div>
-          Status : &nbsp;
-          <input type='text' value={target.state.statusValue} onChange={target.statusChange} /><br/>
+  if(target.state.show) {
+    return(
+      <div className='modalBackground'>
+        <div className='modalBox'>
+          <h1>{target.state.modalTitle}</h1>
+          <button className='closeBtn' onClick={target.closeModal}>X</button>
+          <form onSubmit={target.handleSubmit}>
+            <div>
+              Status : &nbsp;
+              <input type='text' value={target.state.statusValue} onChange={target.statusChange} /><br/>
+            </div>
+            <div>
+              Category : &nbsp;
+              <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} /><br/>
+            </div>
+            <div>
+              Title : &nbsp;
+              <input type='text' value={target.state.titleValue} onChange={target.titleChange} /><br/>
+            </div>
+            <div>
+              Owner : &nbsp;
+              <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} /><br/>
+            </div>
+            <div>
+              Priority : &nbsp;
+              <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} /><br/>
+            </div>
+            <input className='submitBtn' type="submit" />
+          </form>
         </div>
-        <div>
-          Category : &nbsp;
-          <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} /><br/>
-        </div>
-        <div>
-          Title : &nbsp;
-          <input type='text' value={target.state.titleValue} onChange={target.titleChange} /><br/>
-        </div>
-        <div>
-          Owner : &nbsp;
-          <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} /><br/>
-        </div>
-        <div>
-          Priority : &nbsp;
-          <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} /><br/>
-        </div>
-        <input id='submitBtn' type="submit" />
-      </form>
-    </Modal>
-  );
+      </div>
+    );
+  } else {
+    return null;
+  }
 }
 
 module.exports = {

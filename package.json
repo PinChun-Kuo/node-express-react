@@ -18,11 +18,13 @@
     "express": "~4.14.0",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
+    "node-sass": "^3.13.0",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.6",
     "react-bootstrap-table": "^2.5.8",
     "react-dom": "^15.3.2",
     "react-modal": "^1.5.2",
+    "sass-loader": "^4.0.2",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
