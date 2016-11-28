@@ -38,14 +38,14 @@ describe('public/javascripts/tableContent.js Spec', () => {
     });
 
     it('Should render button DOM correctly.', () => {
-      const addBtn = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-      should.exist(addBtn);
-      addBtn[0].textContent.should.be.equal('Add');
-      for (var i = 1; i < addBtn.length; i++) {
+      const button = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+      should.exist(button);
+      button[0].textContent.should.be.equal('Add');
+      for (var i = 1; i < button.length; i++) {
         if(i % 2 === 1) {
-          addBtn[i].textContent.should.be.equal('Edit');
+          button[i].textContent.should.be.equal('Edit');
         } else {
-          addBtn[i].textContent.should.be.equal('Delete');
+          button[i].textContent.should.be.equal('Delete');
         }
       }
     });
@@ -121,12 +121,6 @@ describe('public/javascripts/tableContent.js Spec', () => {
           <TableContent.PopModal target={popModalData}/>
         </Wrapper>
       );
-
-      // console.log('\n\n----- modalInstance : ', modalInstance);
-      // console.log('\n\n isDOMComponent ', ReactTestUtils.isDOMComponent(modalInstance));
-      // console.log('\n\n isCompositeComponent ', ReactTestUtils.isCompositeComponent(modalInstance));
-      // var dom = ReactDOM.findDOMNode(modalInstance);
-      // console.log('\n\n----- dom : ', dom);
     });
 
     it('Should render modalBackground DOM correctly.', () => {
@@ -149,21 +143,17 @@ describe('public/javascripts/tableContent.js Spec', () => {
     it('Should render close button DOM correctly.', () => {
       const closeBtn = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'button');
       (closeBtn.className.indexOf('closeBtn')).should.be.greaterThan(-1);
+      closeBtn.textContent.should.be.equal('X');
       should.exist(closeBtn);
     });
 
-    it('Should render submit button DOM correctly.', () => {
-      const submitBtn = ReactTestUtils.findRenderedDOMComponentWithClass(modalInstance, 'submitBtn');
-      submitBtn.tagName.should.be.equal('INPUT');
-      should.exist(submitBtn);
-    });
-
-    it('Should render input DOM correctly.', () => {
+    it('Should render input DOM and submit button DOM correctly.', () => {
       const form = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'input');
       form.length.should.be.equal(dataList[0].length);
       for (var i = 0; i < form.length; i++) {
         if(i === form.length-1) {
           form[i].type.should.be.equal('submit');
+          form[i].value.should.be.equal('submit');
         } else {
           form[i].type.should.be.equal('text');
         }
