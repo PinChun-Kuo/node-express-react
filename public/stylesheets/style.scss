@@ -1,0 +1,92 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+
+body {
+  padding: 30px 20px;
+  font-family: Quicksand;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  #root {
+    .table-bordered {
+      width: auto;
+      margin-top: 15px;
+      border: solid #fff 0px;
+    }
+    button, .modalBackground .modalBox form .submitBtn {
+      padding: 5px 20px;
+      border: solid #000 1px;
+      border-radius: 4px;
+      font-size: 16px;
+      letter-spacing: 4px;
+    }
+    .table-bordered {
+      width: auto;
+      margin-top: 15px;
+      border: solid #fff 0px;
+      tr {
+        td {
+          vertical-align: middle;
+        }
+        .center {
+          text-align: center;
+        }
+        .Seq, .Priority {
+          width: 150px;
+        }
+        .Status, .Category, .Title, .Owner {
+          width: 250px;
+        }
+        .editBtn, .deleteBtn {
+          width: 80px;
+          background: #fff;
+          border: solid #fff 0px;
+        }
+      }
+    }
+    .modalBackground {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.4);
+      width: 100vw;
+      height: 100vh;
+      .modalBox {
+        position: absolute;
+        left: calc(50% - 350px);
+        top: 100px;
+        background-color: #fff;
+        width: 700px;
+        height: 350px;
+        padding: 10px 20px;
+        border: 1px solid #444444;
+        border-radius: 3px;
+        .closeBtn {
+          width: 22px;
+          position: absolute;
+          top: 1px;
+          right: -2px;
+          padding: 0px;
+          border-color: rgba(255, 255, 255, 0);
+          background-color: rgba(255, 255, 255, 0);
+        }
+        form {
+          div {
+            margin: 15px 5px;
+            input {
+              width: 250px;
+              border-radius: 2px;
+              letter-spacing: 2px;
+              text-indent: 8px;
+            }
+          }
+          .submitBtn {
+            width: 80px;
+            position: absolute;
+            right: calc(50% - 40px);
+            bottom: 25px;
+          }
+        }
+      }
+    }
+  }
+}

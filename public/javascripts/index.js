@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TableContent from './tableContent';
-import style from '../stylesheets/style.css'
+import style from '../stylesheets/style.scss'
 
 const dataList = [
   ['Seq', 'Status', 'Category', 'Title', 'Owner', 'Priority'],

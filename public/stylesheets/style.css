@@ -12,23 +12,23 @@ body {
   border: solid #fff 0px;
 }
 
-.table tr td {
+.table-bordered tr td {
   vertical-align: middle;
 }
 
-.table tr .center {
+.table-bordered tr .center {
   text-align: center;
 }
 
-.table tr .Seq, .table tr .Priority {
+.table-bordered tr .Seq, .table-bordered tr .Priority {
   width: 150px;
 }
 
-.table tr .Status, .table tr .Category, .table tr .Title, .table tr .Owner {
+.table-bordered tr .Status, .table-bordered tr .Category, .table-bordered tr .Title, .table-bordered tr .Owner {
   width: 250px;
 }
 
-.table tr .editBtn, .table tr .deleteBtn {
+.table-bordered tr .editBtn, .table-bordered tr .deleteBtn {
   width: 80px;
   background: #fff;
   border: solid #fff 0px;
