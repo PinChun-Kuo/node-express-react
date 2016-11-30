@@ -1,150 +1,93 @@
 import React from 'react';
+import PopModal from './popModal'
 
-class TableContent extends React.Component  {
+export default class extends React.Component  {
   constructor(props) {
     super(props);
     this.addClick = this.addClick.bind(this);
     this.editClick = this.editClick.bind(this);
     this.deleteClick = this.deleteClick.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.statusChange = this.statusChange.bind(this);
-    this.categoryChange = this.categoryChange.bind(this);
-    this.titleChange = this.titleChange.bind(this);
-    this.ownerChange = this.ownerChange.bind(this);
-    this.priorityChange = this.priorityChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
     this.state = {
-      show: false, // pop modal show or not
       dataList: this.props.dataList,
-      action: 'add', // add or edit
-      modalTitle: ' ', // pop modal title
-      editIndex: 0, // index of edited data
-      statusValue: '',
-      categoryValue: '',
-      titleValue: '',
-      ownerValue: '',
-      priorityValue: ''
+      show: false, // pop modal show or not
+      updateRow: {}
     };
+    this.editIndex = -1;
   }
 
   addClick () {
     this.setState({
       show: true,
-      action: 'add',
-      modalTitle: 'Add Item'
+      updateRow: []
     });
   }
 
   editClick(index) {
+    this.editIndex = Number(index);
     this.setState({
       show: true,
-      action: 'edit',
-      modalTitle: 'Edit Item',
-      editIndex: index,
-      statusValue: this.state.dataList[index][1],
-      categoryValue: this.state.dataList[index][2],
-      titleValue: this.state.dataList[index][3],
-      ownerValue: this.state.dataList[index][4],
-      priorityValue: this.state.dataList[index][5]
+      updateRow: this.state.dataList[index]
     });
   }
 
   deleteClick(index) {
     alert('Are you sure to delete this item?');
-    delete this.state.dataList[index];
+    this.state.dataList.splice(index, 1);
     this.setState({dataList: this.state.dataList});
   }
 
-  closeModal (e) {
+  handleModalSubmit(newItem) {
+    if(this.state.updateRow.length === 0) {     // add Item
+      const length = this.state.dataList.length;
+      const insertItemKey = Number(this.state.dataList[length-1].seq) + 1;     // calculate key value for new item
+      newItem.seq = insertItemKey;
+      this.state.dataList[insertItemKey] = newItem;
+    } else {     // edit Item
+      newItem.seq = this.editIndex;     // add seq value
+      this.state.dataList[this.editIndex] = newItem;
+    }
+
     this.setState({
+      dataList: this.state.dataList,
       show: false,
-      statusValue: '',
-      categoryValue: '',
-      titleValue: '',
-      ownerValue: '',
-      priorityValue: ''
+      updateRow: []
     });
   }
 
-  statusChange(e) {
-    this.setState({statusValue: e.target.value});
-  }
-
-  categoryChange(e) {
-    this.setState({categoryValue: e.target.value});
-  }
-
-  titleChange(e) {
-    this.setState({titleValue: e.target.value});
-  }
-
-  ownerChange(e) {
-    this.setState({ownerValue: e.target.value});
-  }
-
-  priorityChange(e) {
-    this.setState({priorityValue: e.target.value});
-  }
-
-  handleSubmit (e) {
-    e.preventDefault();
-    let newItem = [], inputEmpty = false;
-
-    for (var i = 0; i < e.target.length - 1; i++) {
-      if(e.target[i].value === '') {
-        inputEmpty = true;
-      }
-      newItem.push(e.target[i].value);
-    }
-
-    if(inputEmpty) {     // check input empty or not
-      alert('欄位不得為空')
-    } else {
-      if(this.state.action == 'add') {     // add Item
-        newItem.splice(0, 0, this.state.dataList.length);
-        this.state.dataList.push(newItem);
-      } else {     // edit Item
-        this.state.dataList[this.state.editIndex][1] = newItem[0];
-        this.state.dataList[this.state.editIndex][2] = newItem[1];
-        this.state.dataList[this.state.editIndex][3] = newItem[2];
-        this.state.dataList[this.state.editIndex][4] = newItem[3];
-        this.state.dataList[this.state.editIndex][5] = newItem[4];
-      }
-
-      this.setState({
-        show: false,
-        dataList: this.state.dataList,
-        statusValue: '',
-        categoryValue: '',
-        titleValue: '',
-        ownerValue: '',
-        priorityValue: ''
-      });
-    }
+  handleModalClose() {
+    this.setState({
+      show: false,
+      updateRow: []
+    });
   }
 
   render() {
     const dataList = this.state.dataList;
-    const newDataList = dataList.slice(0);
-    const tableHead = newDataList[0].map((number) => <th className={number + ' center'}>{number}</th>);
-    delete newDataList[0];
-    const tableDatas = newDataList.map((number) =>
-      <tr key={number[0]}>
-        <td className='center Seq'>{number[0]}</td>
-        <td className='center Status'>{number[1]}</td>
-        <td className='center Category'>{number[2]}</td>
-        <td className='center Title'>{number[3]}</td>
-        <td className='center Owner'>{number[4]}</td>
-        <td className='center Priority'>{number[5]}</td>
-        <td className='editBtn' onClick={() => this.editClick(number[0])}><button>Edit</button></td>
-        <td className='deleteBtn' onClick={() => this.deleteClick(number[0])}><button>Delete</button></td>
+    const copyDataList = Object.assign([], dataList);
+    const tableHead = Object.keys(copyDataList[0]).map((number) =>
+      <th className={'center ' + number}>{copyDataList[0][number]}</th>
+    );
+
+    delete copyDataList[0];
+    const tableDatas = copyDataList.map((number) =>
+      <tr>
+        <td className='center seq'>{number.seq}</td>
+        <td className='center status'>{number.status}</td>
+        <td className='center category'>{number.category}</td>
+        <td className='center title'>{number.title}</td>
+        <td className='center owner'>{number.owner}</td>
+        <td className='center priority'>{number.priority}</td>
+        <td className='editBtn' onClick={() => this.editClick(number.seq)}><button>Edit</button></td>
+        <td className='deleteBtn' onClick={() => this.deleteClick(number.seq)}><button>Delete</button></td>
       </tr>
     );
 
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
-        <PopModal target={this}/>
+        <PopModal show={this.state.show} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose}/>
         <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
@@ -158,49 +101,4 @@ class TableContent extends React.Component  {
       </div>
     );
   }
-}
-
-function PopModal(props) {
-  let target = props.target;
-
-  if(target.state.show) {
-    return(
-      <div className='modalBackground'>
-        <div className='modalBox'>
-          <h1>{target.state.modalTitle}</h1>
-          <button className='closeBtn' onClick={target.closeModal}>X</button>
-          <form onSubmit={target.handleSubmit}>
-            <div>
-              &nbsp;Status : &nbsp;
-              <input type='text' value={target.state.statusValue} onChange={target.statusChange} />
-            </div>
-            <div>
-              &nbsp;Category : &nbsp;
-              <input type='text' value={target.state.categoryValue} onChange={target.categoryChange} />
-            </div>
-            <div>
-              &nbsp;Title : &nbsp;
-              <input type='text' value={target.state.titleValue} onChange={target.titleChange} />
-            </div>
-            <div>
-              &nbsp;Owner : &nbsp;
-              <input type='text' value={target.state.ownerValue} onChange={target.ownerChange} />
-            </div>
-            <div>
-              &nbsp;Priority : &nbsp;
-              <input type='text' value={target.state.priorityValue} onChange={target.priorityChange} />
-            </div>
-            <input className='submitBtn' type="submit" value='submit'/>
-          </form>
-        </div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-}
-
-module.exports = {
-  TableContent: TableContent,
-  PopModal: PopModal
 }
