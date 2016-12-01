@@ -1,7 +1,7 @@
 import React from 'react';
-import PopModal from './popModal'
+import PopModal from './popModal';
 
-export default class extends React.Component  {
+export default class extends React.Component {
   constructor(props) {
     super(props);
     this.addClick = this.addClick.bind(this);
@@ -17,7 +17,7 @@ export default class extends React.Component  {
     this.editIndex = -1;
   }
 
-  addClick () {
+  addClick() {
     this.setState({
       show: true,
       updateRow: []
@@ -35,13 +35,13 @@ export default class extends React.Component  {
   deleteClick(index) {
     alert('Are you sure to delete this item?');
     this.state.dataList.splice(index, 1);
-    this.setState({dataList: this.state.dataList});
+    this.setState({ dataList: this.state.dataList });
   }
 
   handleModalSubmit(newItem) {
-    if(this.state.updateRow.length === 0) {     // add Item
+    if (this.state.updateRow.length === 0) {     // add Item
       const length = this.state.dataList.length;
-      const insertItemKey = Number(this.state.dataList[length-1].seq) + 1;     // calculate key value for new item
+      const insertItemKey = Number(this.state.dataList[length - 1].seq) + 1;     // calculate key value for new item
       newItem.seq = insertItemKey;
       this.state.dataList[insertItemKey] = newItem;
     } else {     // edit Item
@@ -67,29 +67,29 @@ export default class extends React.Component  {
     const dataList = this.state.dataList;
     const copyDataList = Object.assign([], dataList);
     const tableHead = Object.keys(copyDataList[0]).map((number) =>
-      <th className={'center ' + number}>{copyDataList[0][number]}</th>
+      <th className={"center " + number}>{copyDataList[0][number]}</th>
     );
 
     delete copyDataList[0];
     const tableDatas = copyDataList.map((number) =>
       <tr>
-        <td className='center seq'>{number.seq}</td>
-        <td className='center status'>{number.status}</td>
-        <td className='center category'>{number.category}</td>
-        <td className='center title'>{number.title}</td>
-        <td className='center owner'>{number.owner}</td>
-        <td className='center priority'>{number.priority}</td>
-        <td className='editBtn' onClick={() => this.editClick(number.seq)}><button>Edit</button></td>
-        <td className='deleteBtn' onClick={() => this.deleteClick(number.seq)}><button>Delete</button></td>
+        <td className="center seq">{number.seq}</td>
+        <td className="center status">{number.status}</td>
+        <td className="center category">{number.category}</td>
+        <td className="center title">{number.title}</td>
+        <td className="center owner">{number.owner}</td>
+        <td className="center priority">{number.priority}</td>
+        <td className="editBtn" onClick={() => this.editClick(number.seq)}><button>Edit</button></td>
+        <td className="deleteBtn" onClick={() => this.deleteClick(number.seq)}><button>Delete</button></td>
       </tr>
     );
 
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
-        <PopModal show={this.state.show} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose}/>
-        <table className='table table-bordered table-striped table-hover'>
-          <thead className='thead-inverse'>
+        <PopModal show={this.state.show} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
+        <table className="table table-bordered table-striped table-hover">
+          <thead className="thead-inverse">
             <tr>
               {tableHead}
             </tr>
