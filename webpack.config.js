@@ -10,7 +10,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
     // 檔案起始點從 entry 進入，因為是陣列所以也可以是多個檔案
     entry: {
-        'index': './public/javascripts/index.js'
+        'index': './public/javascripts/index.jsx'
     },
     // output 是放入產生出來的結果的相關參數
     output: {
@@ -37,6 +37,10 @@ module.exports = {
             test: /\.s[a|c]ss$/,
             loader: 'style!css!sass'
         }]
+    },
+    // 其他解決方案配置
+    resolve: {
+      extensions: ['', '.js', '.jsx']
     },
     // devServer 則是 webpack-dev-server 設定
     devServer: {

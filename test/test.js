@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from './wrapper';
-import TableContent from '../public/javascripts/tableContent';
+import Table from '../public/javascripts/table';
 import PopModal from '../public/javascripts/popModal';
 
 const dataList = [
-  { 'seq': 'Seq', 'status': 'Status', 'category': 'Category', 'title': 'Title', 'owner': 'Owner', 'priority': 'Priority' },
-  { 'seq': 1, 'status': 'Open', 'category': 'category1', 'title': 'title1', 'owner': 'Owner1', 'priority': 'P1' },
-  { 'seq': 2, 'status': 'Open', 'category': 'category2', 'title': 'title2', 'owner': 'Owner2', 'priority': 'P2' },
-  { 'seq': 3, 'status': 'Close', 'category': 'category3', 'title': 'title3', 'owner': 'Owner3', 'priority': 'P3' }
+  { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
+  { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
+  { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
+  { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
 ];
 
 const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
 
-describe('public/javascripts/tableContent.js Spec', () => {
+describe('public/javascripts/table.js Spec', () => {
   let instance;
   let modalInstance;
   let dom;
@@ -25,7 +25,7 @@ describe('public/javascripts/tableContent.js Spec', () => {
     beforeEach(function() {
       instance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <TableContent dataList={dataList} />
+          <Table dataList={dataList} />
         </Wrapper>
       );
 
@@ -35,7 +35,9 @@ describe('public/javascripts/tableContent.js Spec', () => {
     });
 
     it('Should render DOM correctly.', () => {
+      // dom = instance.getDOMNode;
       dom = ReactDOM.findDOMNode(instance);
+      // console.log('\n\n\ ----- dom : ', dom);
       dom.tagName.should.eql('DIV');
       dom.childNodes[0].childNodes.length.should.eql(3);
       dom.childNodes[0].childNodes[0].tagName.should.eql('BUTTON');

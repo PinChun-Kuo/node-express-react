@@ -2,15 +2,16 @@ import React from 'react';
 
 // check whether there is empty input
 function checkInputEmptyOrNot(itemObj) {
-  for (const key in itemObj) {
-    if (itemObj[key] === '') {
+  const itemObjKeys = Object.keys(itemObj);
+  for (let i = 0; i < itemObjKeys.length; i += 1) {
+    if (itemObj[itemObjKeys[i]] === '') {
       return true;
     }
   }
   return false;
 }
 
-export default class extends React.Component {
+export default class popModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
@@ -21,20 +22,13 @@ export default class extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
-      statusValue: props.displayData.status,
-      categoryValue: props.displayData.category,
-      titleValue: props.displayData.title,
-      ownerValue: props.displayData.owner,
-      priorityValue: props.displayData.priority
+      statusValue: this.props.displayData.status,
+      categoryValue: this.props.displayData.category,
+      titleValue: this.props.displayData.title,
+      ownerValue: this.props.displayData.owner,
+      priorityValue: this.props.displayData.priority
     };
   }
-
-  // propTypes: {
-  //   displayData: React.PropTypes.array.isRequired,
-  //   show: React.PropTypes.bool.isRequired,
-  //   onModalSubmit: React.PropTypes.func.isRequired,
-  //   onModalClose: React.PropTypes.func.isRequired
-  // };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -69,11 +63,11 @@ export default class extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const newItem = {
-      status: this.refs.status.value.trim(),
-      category: this.refs.category.value.trim(),
-      title: this.refs.title.value.trim(),
-      owner: this.refs.owner.value.trim(),
-      priority: this.refs.priority.value.trim()
+      status: this.status.trim(),
+      category: this.category.trim(),
+      title: this.title.trim(),
+      owner: this.owner.trim(),
+      priority: this.priority.trim()
     };
 
     const inputEmpty = checkInputEmptyOrNot(newItem);
@@ -92,38 +86,55 @@ export default class extends React.Component {
   render() {
     if (this.props.show) {
       return (
-        <div className="modalBackground">
-          <div className="modalBox">
-            <h1>{this.props.displayData.length > 0 ? 'Edit Item > ' + this.props.displayData[0] : 'Add Item'}</h1>
-            <button className="closeBtn" onClick={this.handleClose}>X</button>
+        <div className='modalBackground'>
+          <div className='modalBox'>
+            <h1>{Object.keys(this.props.displayData).length > 0 ? 'Edit Item > ' + this.props.displayData[0] : 'Add Item'}</h1>
+            <button className='closeBtn' onClick={this.handleClose}>X</button>
             <form onSubmit={this.handleSubmit}>
               <div>
                 &nbsp;Status : &nbsp;
-                <input type="text" ref="status" value={this.state.statusValue || ''} onChange={this.handleStatusChange} />
+                <input type='text' ref={() => { this.status = this.state.statusValue; }} value={this.state.statusValue || ''} onChange={this.handleStatusChange} />
               </div>
               <div>
                 &nbsp;Category : &nbsp;
-                <input type="text" ref="category" value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} />
+                <input type='text' ref={() => { this.category = this.state.categoryValue; }} value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} />
               </div>
               <div>
                 &nbsp;Title : &nbsp;
-                <input type="text" ref="title" value={this.state.titleValue || ''} onChange={this.handleTitleChange} />
+                <input type='text' ref={() => { this.title = this.state.titleValue; }} value={this.state.titleValue || ''} onChange={this.handleTitleChange} />
               </div>
               <div>
                 &nbsp;Owner : &nbsp;
-                <input type="text" ref="owner" value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} />
+                <input type='text' ref={() => { this.owner = this.state.ownerValue; }} value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} />
               </div>
               <div>
                 &nbsp;Priority : &nbsp;
-                <input type="text" ref="priority" value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} />
+                <input type='text' ref={() => { this.priority = this.state.priorityValue; }} value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} />
               </div>
-              <input className="submitBtn" type="submit" value="submit" />
+              <input className='submitBtn' type='submit' value='submit' />
             </form>
           </div>
         </div>
       );
-    } else {
-      return null;
     }
+    return null;
   }
+}
+
+
+popModal.propTypes = {
+  displayData: React.PropTypes.shape({
+    seq: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]),
+    status: React.PropTypes.string,
+    category: React.PropTypes.string,
+    title: React.PropTypes.string,
+    owner: React.PropTypes.string,
+    priority: React.PropTypes.string
+  }).isRequired,
+  show: React.PropTypes.bool.isRequired,
+  onModalSubmit: React.PropTypes.func,
+  onModalClose: React.PropTypes.func
 };

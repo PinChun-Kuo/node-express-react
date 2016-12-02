@@ -1,6 +1,6 @@
 import React from 'react';
 
-module.exports = function() {
+export default function wrapper() {
   return React.createClass({
     propTypes: {
       children: React.PropTypes.element.isRequired,
@@ -11,4 +11,4 @@ module.exports = function() {
       );
     }
   });
-};
+}

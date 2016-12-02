@@ -3,7 +3,15 @@
   "env": {
     "browser": true,
     "node": true,
+    "es6": true,
     "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true
+    }
   },
   "rules": {
     "no-var": 0,
@@ -19,17 +27,21 @@
     "comma-dangle": ["error", "only-multiline"],
     "import/no-unresolved": 0,
     "max-len": 0,
-    "react/jsx-uses-react": 0,
-    "react/jsx-uses-vars": 0,
-    "react/react-in-jsx-scope": 0,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
     "react/no-deprecated": 0,
     "block-scoped-var": 0,
     "padded-blocks": 0,
     "no-console": 0,
     "id-length": 0,
     "no-unused-expressions": 0,
+    "jsx-quotes": ["error", "prefer-single"],
+
+    "no-alert": 0,
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     // for windows
-    "linebreak-style": 0
+    "linebreak-style": [0, "windows"]
   },
   "plugins": [
     "react"
