@@ -14,7 +14,7 @@ module.exports = function(config) {
 
         // List of files/patterns to load in the browser.
         files: [
-            './test/test.js'
+            './test/index.jsx'
         ],
 
         // List of plugins to load. A plugin can be a string (in which case it will be required by Karma) or an inlined plugin - Object.
@@ -29,7 +29,7 @@ module.exports = function(config) {
         // Preprocessors in Karma allow you to do some work with your files before they get served to the browser.
         // These are configured in the preprocessors block of the configuration file:
         preprocessors: {
-            './test/test.js': ['webpack'],
+            './test/index.jsx': ['webpack'],
         },
 
         webpack: require('./webpack.config.js'),
