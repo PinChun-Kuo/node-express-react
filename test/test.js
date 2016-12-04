@@ -18,7 +18,6 @@ const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
 describe('public/javascripts/table.js Spec', () => {
   let instance;
   let modalInstance;
-  let dom;
   const Wrapper = wrapper();
 
   describe('Render table', () => {
@@ -28,20 +27,15 @@ describe('public/javascripts/table.js Spec', () => {
           <Table dataList={dataList} />
         </Wrapper>
       );
-
-      // dom = ReactDOM.findDOMNode(instance);
-      // console.log('\n\n --- instance --- : ', instance);
-      // console.log('\n\n --- dom --- : ', dom);
     });
 
     it('Should render DOM correctly.', () => {
-      // dom = instance.getDOMNode;
-      dom = ReactDOM.findDOMNode(instance);
-      // console.log('\n\n\ ----- dom : ', dom);
-      dom.tagName.should.eql('DIV');
-      dom.childNodes[0].childNodes.length.should.eql(3);
-      dom.childNodes[0].childNodes[0].tagName.should.eql('BUTTON');
-      dom.childNodes[0].childNodes[2].tagName.should.eql('TABLE');
+      const div = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+
+      div[0].tagName.should.eql('DIV');
+      div[0].childNodes[0].childNodes.length.should.eql(3);
+      div[0].childNodes[0].childNodes[0].tagName.should.eql('BUTTON');
+      div[0].childNodes[0].childNodes[2].tagName.should.eql('TABLE');
     });
 
     it('Should render button correctly.', () => {

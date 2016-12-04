@@ -1,92 +1,102 @@
-/*@import url(https://fonts.googleapis.com/css?family=Quicksand);*/
-
 body {
-  padding: 30px 20px;
-  font: 20px "Lucida Grande", Helvetica, Quicksand, sans-serif;
-  letter-spacing: 2px;
+	padding: 30px 20px;
+	font-family: Quicksand;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 2px;
 }
 
-.table-bordered {
-  width: auto;
-  margin-top: 15px;
-  border: solid #fff 0px;
+body #root .table-bordered {
+	width: auto;
+	margin-top: 15px;
+	border: solid #fff 0px;
 }
 
-.table-bordered tr td {
-  vertical-align: middle;
+body #root button, body #root .modalBackground .modalBox form .submitBtn {
+	padding: 5px 20px;
+	border: solid #000 1px;
+	border-radius: 4px;
+	font-size: 16px;
+	letter-spacing: 4px;
 }
 
-.table-bordered tr .center {
-  text-align: center;
+body #root .table-bordered {
+	width: auto;
+	margin-top: 15px;
+	border: solid #fff 0px;
 }
 
-.table-bordered tr .Seq, .table-bordered tr .Priority {
-  width: 150px;
+body #root .table-bordered tr td {
+	vertical-align: middle;
 }
 
-.table-bordered tr .Status, .table-bordered tr .Category, .table-bordered tr .Title, .table-bordered tr .Owner {
-  width: 250px;
+body #root .table-bordered tr .center {
+	text-align: center;
 }
 
-.table-bordered tr .editBtn, .table-bordered tr .deleteBtn {
-  width: 80px;
-  background: #fff;
-  border: solid #fff 0px;
+body #root .table-bordered tr .seq, body #root .table-bordered tr .priority {
+	width: 150px;
 }
 
-button, .modalBox form .submitBtn {
-  padding: 5px 20px;
-  border: solid #000 1px;
-  border-radius: 4px;
-  font-size: 16px;
-  letter-spacing: 4px;
+body #root .table-bordered tr .status, body #root .table-bordered tr .category, body #root .table-bordered tr .title, body #root .table-bordered tr .owner {
+	width: 250px;
 }
 
-.modalBackground {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 0.4);
-  width: 100vw;
-  height: 100vh;
+body #root .table-bordered tr .editBtn, body #root .table-bordered tr .deleteBtn {
+	width: 80px;
+	background: #fff;
+	border: solid #fff 0px;
 }
 
-.modalBox {
-  position: absolute;
-  left: calc(50% - 350px);
-  top: 100px;
-  background-color: #fff;
-  width: 700px;
-  height: 350px;
-  padding: 10px 20px;
-  border: 1px solid #444444;
-  border-radius: 3px;
+body #root .modalBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(255, 255, 255, 0.4);
+	width: 100vw;
+	height: 100vh;
 }
 
-.modalBox form .submitBtn {
-  width: 80px;
-  position: absolute;
-  right: calc(50% - 40px);
-  bottom: 25px;
+body #root .modalBackground .modalBox {
+	position: absolute;
+	left: calc(50% - 350px);
+	top: 100px;
+	background-color: #fff;
+	width: 700px;
+	height: 400px;
+	padding: 10px 20px;
+	border: 1px solid #444444;
+	border-radius: 3px;
 }
 
-.modalBox .closeBtn {
-  width: 22px;
-  position: absolute;
-  top: 1px;
-  right: -4px;
-  padding: 0px;
-  border-color: rgba(255, 255, 255, 0);
-  background-color: rgba(255, 255, 255, 0);
+body #root .modalBackground .modalBox h1 {
+	font-style: italic;
 }
 
-.modalBox form div {
-  margin: 15px 5px;
+body #root .modalBackground .modalBox .closeBtn {
+	width: 22px;
+	position: absolute;
+	top: 1px;
+	right: -2px;
+	padding: 0px;
+	border-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);
 }
 
-.modalBox form div input {
-  width: 250px;
-  border-radius: 2px;
-  letter-spacing: 2px;
-  text-indent: 8px;
+body #root .modalBackground .modalBox form div {
+	margin: 15px 5px;
+}
+
+body #root .modalBackground .modalBox form div input {
+	width: 250px;
+	border-radius: 2px;
+	letter-spacing: 2px;
+	text-indent: 8px;
+}
+
+body #root .modalBackground .modalBox form .submitBtn {
+	width: 120px;
+	position: absolute;
+	right: calc(50% - 40px);
+	bottom: 25px;
 }
