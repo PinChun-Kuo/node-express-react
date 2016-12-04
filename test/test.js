@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from './wrapper';
