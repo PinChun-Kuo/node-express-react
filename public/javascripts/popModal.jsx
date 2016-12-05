@@ -63,17 +63,17 @@ export default class popModal extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const newItem = {
-      status: this.status.trim(),
-      category: this.category.trim(),
-      title: this.title.trim(),
-      owner: this.owner.trim(),
-      priority: this.priority.trim()
+      status: this.status === undefined ? '' : this.status.trim(),
+      category: this.category === undefined ? '' : this.category.trim(),
+      title: this.title === undefined ? '' : this.title.trim(),
+      owner: this.owner === undefined ? '' : this.owner.trim(),
+      priority: this.priority === undefined ? '' : this.priority.trim(),
     };
 
     const inputEmpty = checkInputEmptyOrNot(newItem);
 
     if (inputEmpty) {     // check input empty or not
-      alert('欄位不得為空');
+      alert('Field can not be empty.');
     } else {
       this.props.onModalSubmit(newItem);
     }
@@ -88,28 +88,28 @@ export default class popModal extends React.Component {
       return (
         <div className='modalBackground'>
           <div className='modalBox'>
-            <h1>{Object.keys(this.props.displayData).length > 0 ? 'Edit Item > ' + this.props.displayData[0] : 'Add Item'}</h1>
+            <h1>{Object.keys(this.props.displayData).length > 0 ? 'Edit Item > ' + this.props.displayData.seq : 'Add Item'}<span> *為必填欄位</span></h1>
             <button className='closeBtn' onClick={this.handleClose}>X</button>
             <form onSubmit={this.handleSubmit}>
               <div>
                 &nbsp;Status : &nbsp;
-                <input type='text' ref={() => { this.status = this.state.statusValue; }} value={this.state.statusValue || ''} onChange={this.handleStatusChange} />
+                <input type='text' ref={() => { this.status = this.state.statusValue; }} value={this.state.statusValue || ''} onChange={this.handleStatusChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Category : &nbsp;
-                <input type='text' ref={() => { this.category = this.state.categoryValue; }} value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} />
+                <input type='text' ref={() => { this.category = this.state.categoryValue; }} value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Title : &nbsp;
-                <input type='text' ref={() => { this.title = this.state.titleValue; }} value={this.state.titleValue || ''} onChange={this.handleTitleChange} />
+                <input type='text' ref={() => { this.title = this.state.titleValue; }} value={this.state.titleValue || ''} onChange={this.handleTitleChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Owner : &nbsp;
-                <input type='text' ref={() => { this.owner = this.state.ownerValue; }} value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} />
+                <input type='text' ref={() => { this.owner = this.state.ownerValue; }} value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Priority : &nbsp;
-                <input type='text' ref={() => { this.priority = this.state.priorityValue; }} value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} />
+                <input type='text' ref={() => { this.priority = this.state.priorityValue; }} value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} /><span> *</span>
               </div>
               <input className='submitBtn' type='submit' value='submit' />
             </form>

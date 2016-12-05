@@ -139,7 +139,7 @@ describe('public/javascripts/table.js Spec', () => {
       const input = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'input');
       input.length.should.be.equal(6);
       for (let i = 0; i < input.length; i += 1) {
-        if (i === input.length - 1) {
+        if (input[i].className === 'submitBtn') {
           input[i].type.should.be.equal('submit');
           input[i].value.should.be.equal('submit');
         } else {
