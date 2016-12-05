@@ -1,14 +1,13 @@
 import React from 'react';
 
 // check whether there is empty input
-function checkInputEmptyOrNot(itemObj) {
-  const itemObjKeys = Object.keys(itemObj);
-  for (let i = 0; i < itemObjKeys.length; i += 1) {
-    if (itemObj[itemObjKeys[i]] === '') {
-      return true;
+function checkInputEmptyOrNot(formFields) {
+  for (let i = 0; i < formFields.length; i += 1) {
+    if (formFields[i].type === 'text' && formFields[i].value === '') {
+      return i;
     }
   }
-  return false;
+  return -1;
 }
 
 export default class popModal extends React.Component {
@@ -62,19 +61,19 @@ export default class popModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newItem = {
-      status: this.status === undefined ? '' : this.status.trim(),
-      category: this.category === undefined ? '' : this.category.trim(),
-      title: this.title === undefined ? '' : this.title.trim(),
-      owner: this.owner === undefined ? '' : this.owner.trim(),
-      priority: this.priority === undefined ? '' : this.priority.trim(),
-    };
+    const EmptyIndex = checkInputEmptyOrNot(e.target);
 
-    const inputEmpty = checkInputEmptyOrNot(newItem);
-
-    if (inputEmpty) {     // check input empty or not
-      alert('Field can not be empty.');
+    if (EmptyIndex > -1) {     // check input empty or not
+      alert(e.target[EmptyIndex].getAttribute('data-field-name') + ' can not be empty.');
     } else {
+      const newItem = {
+        status: this.status.trim(),
+        category: this.category.trim(),
+        title: this.title.trim(),
+        owner: this.owner.trim(),
+        priority: this.priority.trim(),
+      };
+
       this.props.onModalSubmit(newItem);
     }
   }
@@ -93,23 +92,23 @@ export default class popModal extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <div>
                 &nbsp;Status : &nbsp;
-                <input type='text' ref={() => { this.status = this.state.statusValue; }} value={this.state.statusValue || ''} onChange={this.handleStatusChange} /><span> *</span>
+                <input data-field-name='Status' type='text' ref={() => { this.status = this.state.statusValue; }} value={this.state.statusValue || ''} onChange={this.handleStatusChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Category : &nbsp;
-                <input type='text' ref={() => { this.category = this.state.categoryValue; }} value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} /><span> *</span>
+                <input data-field-name='Category' type='text' ref={() => { this.category = this.state.categoryValue; }} value={this.state.categoryValue || ''} onChange={this.handleCategoryChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Title : &nbsp;
-                <input type='text' ref={() => { this.title = this.state.titleValue; }} value={this.state.titleValue || ''} onChange={this.handleTitleChange} /><span> *</span>
+                <input data-field-name='Title' type='text' ref={() => { this.title = this.state.titleValue; }} value={this.state.titleValue || ''} onChange={this.handleTitleChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Owner : &nbsp;
-                <input type='text' ref={() => { this.owner = this.state.ownerValue; }} value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} /><span> *</span>
+                <input data-field-name='Owner' type='text' ref={() => { this.owner = this.state.ownerValue; }} value={this.state.ownerValue || ''} onChange={this.handleOwnerChange} /><span> *</span>
               </div>
               <div>
                 &nbsp;Priority : &nbsp;
-                <input type='text' ref={() => { this.priority = this.state.priorityValue; }} value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} /><span> *</span>
+                <input data-field-name='Priority' type='text' ref={() => { this.priority = this.state.priorityValue; }} value={this.state.priorityValue || ''} onChange={this.handlePriorityChange} /><span> *</span>
               </div>
               <input className='submitBtn' type='submit' value='submit' />
             </form>

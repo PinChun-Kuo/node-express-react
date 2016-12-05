@@ -29,7 +29,7 @@ export default class tableContent extends React.Component {
   addClick() {
     this.setState({
       show: true,
-      updateRow: []
+      updateRow: {}
     });
   }
 
@@ -50,7 +50,7 @@ export default class tableContent extends React.Component {
 
   handleModalSubmit(item) {
     const newItem = item;
-    if (this.state.updateRow.length === 0) {     // add Item
+    if (Object.keys(this.state.updateRow).length === 0) {     // add Item
       const length = this.state.dataList.length;
       const insertItemKey = Number(this.state.dataList[length - 1].seq) + 1;     // calculate key value for new item
       newItem.seq = insertItemKey;
@@ -63,14 +63,14 @@ export default class tableContent extends React.Component {
     this.setState({
       dataList: this.state.dataList,
       show: false,
-      updateRow: []
+      updateRow: {}
     });
   }
 
   handleModalClose() {
     this.setState({
       show: false,
-      updateRow: []
+      updateRow: {}
     });
   }
 
