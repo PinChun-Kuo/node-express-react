@@ -2,7 +2,7 @@ import React from 'react';
 import PopModal from './popModal';
 
 function findIndex(seq, dataList) {
-  for (let i = 0; i < Object.keys(dataList).length; i += 1) {
+  for (let i = 0; i < dataList.length; i += 1) {
     if (seq === dataList[i].seq) {
       return i;
     }
@@ -20,15 +20,15 @@ export default class tableContent extends React.Component {
     this.handleModalClose = this.handleModalClose.bind(this);
     this.state = {
       dataList: this.props.dataList,
-      show: false, // pop modal show or not
-      updateRow: {}
+      modalShow: this.props.modalShow, // pop modal show or not
+      updateRow: this.props.updateRow
     };
     this.editIndex = -1;
   }
 
   addClick() {
     this.setState({
-      show: true,
+      modalShow: true,
       updateRow: {}
     });
   }
@@ -36,10 +36,17 @@ export default class tableContent extends React.Component {
   editClick(seq) {
     this.editIndex = findIndex(seq, this.state.dataList);
     this.setState({
-      show: true,
+      modalShow: true,
       updateRow: this.state.dataList[this.editIndex]
     });
   }
+
+  // deleteClick(seq) {
+  //   const index = findIndex(seq, this.state.dataList);
+  //   alert('Are you sure to delete this item?');
+  //   this.state.dataList.splice(index, 1);
+  //   this.setState({ dataList: this.state.dataList });
+  // }
 
   deleteClick(seq) {
     const index = findIndex(seq, this.state.dataList);
@@ -62,14 +69,14 @@ export default class tableContent extends React.Component {
 
     this.setState({
       dataList: this.state.dataList,
-      show: false,
+      modalShow: false,
       updateRow: {}
     });
   }
 
   handleModalClose() {
     this.setState({
-      show: false,
+      modalShow: false,
       updateRow: {}
     });
   }
@@ -98,7 +105,7 @@ export default class tableContent extends React.Component {
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
-        <PopModal show={this.state.show} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
+        <PopModal modalShow={this.state.modalShow} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
         <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>

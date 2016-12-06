@@ -83,7 +83,7 @@ export default class popModal extends React.Component {
   }
 
   render() {
-    if (this.props.show) {
+    if (this.props.modalShow) {
       return (
         <div className='modalBackground'>
           <div className='modalBox'>
@@ -133,7 +133,7 @@ popModal.propTypes = {
     owner: React.PropTypes.string,
     priority: React.PropTypes.string
   }).isRequired,
-  show: React.PropTypes.bool.isRequired,
+  modalShow: React.PropTypes.bool.isRequired,
   onModalSubmit: React.PropTypes.func,
   onModalClose: React.PropTypes.func
 };
