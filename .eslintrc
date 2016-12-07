@@ -33,7 +33,7 @@
     "react/no-deprecated": 0,
     "block-scoped-var": 2,
     "padded-blocks": 0,
-    "no-console": 2,
+    "no-console": 1,
     "id-length": 0,
     "no-unused-expressions": 0,
     "jsx-quotes": ["error", "prefer-single"],

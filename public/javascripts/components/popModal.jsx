@@ -67,6 +67,7 @@ export default class popModal extends React.Component {
       alert(e.target[EmptyIndex].getAttribute('data-field-name') + ' can not be empty.');
     } else {
       const newItem = {
+        seq: this.props.displayData.seq || '',
         status: this.status.trim(),
         category: this.category.trim(),
         title: this.title.trim(),

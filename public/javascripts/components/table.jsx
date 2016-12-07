@@ -1,15 +1,6 @@
 import React from 'react';
 import PopModal from './popModal';
 
-function findIndex(seq, dataList) {
-  for (let i = 0; i < dataList.length; i += 1) {
-    if (seq === dataList[i].seq) {
-      return i;
-    }
-  }
-  return -1;
-}
-
 export default class tableContent extends React.Component {
   constructor(props) {
     super(props);
@@ -18,78 +9,42 @@ export default class tableContent extends React.Component {
     this.deleteClick = this.deleteClick.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
-    this.state = {
-      dataList: this.props.dataList,
-      modalShow: this.props.modalShow, // pop modal show or not
-      updateRow: this.props.updateRow
-    };
-    this.editIndex = -1;
   }
 
   addClick() {
-    this.setState({
-      modalShow: true,
-      updateRow: {}
-    });
+    this.props.openPopModal(null, this.props.dataList);
   }
 
   editClick(seq) {
-    this.editIndex = findIndex(seq, this.state.dataList);
-    this.setState({
-      modalShow: true,
-      updateRow: this.state.dataList[this.editIndex]
-    });
+    this.props.openPopModal(seq, this.props.dataList);
   }
 
-  // deleteClick(seq) {
-  //   const index = findIndex(seq, this.state.dataList);
-  //   alert('Are you sure to delete this item?');
-  //   this.state.dataList.splice(index, 1);
-  //   this.setState({ dataList: this.state.dataList });
-  // }
-
   deleteClick(seq) {
-    const index = findIndex(seq, this.state.dataList);
     alert('Are you sure to delete this item?');
-    this.state.dataList.splice(index, 1);
-    this.setState({ dataList: this.state.dataList });
+    this.props.deleteItemAction(seq);
   }
 
   handleModalSubmit(item) {
-    const newItem = item;
-    if (Object.keys(this.state.updateRow).length === 0) {     // add Item
-      const length = this.state.dataList.length;
-      const insertItemKey = Number(this.state.dataList[length - 1].seq) + 1;     // calculate key value for new item
-      newItem.seq = insertItemKey;
-      this.state.dataList.push(newItem);
+    if (Object.keys(this.props.updateRow).length === 0) {     // add Item
+      this.props.addItemAction(item);
     } else {     // edit Item
-      newItem.seq = this.state.dataList[this.editIndex].seq;     // add seq value
-      this.state.dataList[this.editIndex] = newItem;
+      this.props.editItemAction(item);
     }
-
-    this.setState({
-      dataList: this.state.dataList,
-      modalShow: false,
-      updateRow: {}
-    });
   }
 
   handleModalClose() {
-    this.setState({
-      modalShow: false,
-      updateRow: {}
-    });
+    this.props.closePopModal();
   }
 
   render() {
-    const dataList = this.state.dataList;
-    const copyDataList = Object.assign([], dataList);
-    const tableHead = Object.keys(copyDataList[0]).map(number =>
-      <th className={'center ' + number}>{copyDataList[0][number]}</th>
+    const dataList = this.props.dataList;
+    const tableHead = dataList.filter(item => item.seq === 'Seq');
+    const tableHeadRow = Object.keys(tableHead[0]).map(number =>
+      <th className={'center ' + number}>{tableHead[0][number]}</th>
     );
 
-    delete copyDataList[0];
-    const tableDatas = copyDataList.map(number => (
+    const tableData = dataList.filter(item => item.seq !== 'Seq');
+    const tableDataRows = tableData.map(number => (
       <tr>
         <td className='center seq'>{number.seq}</td>
         <td className='center status'>{number.status}</td>
@@ -105,15 +60,15 @@ export default class tableContent extends React.Component {
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
-        <PopModal modalShow={this.state.modalShow} displayData={this.state.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
+        <PopModal modalShow={this.props.modalShow} displayData={this.props.updateRow} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
         <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
-              {tableHead}
+              {tableHeadRow}
             </tr>
           </thead>
           <tbody>
-            {tableDatas}
+            {tableDataRows}
           </tbody>
         </table>
       </div>
@@ -132,5 +87,22 @@ tableContent.propTypes = {
     title: React.PropTypes.string,
     owner: React.PropTypes.string,
     priority: React.PropTypes.string
-  })).isRequired
+  })).isRequired,
+  modalShow: React.PropTypes.bool, // pop modal show or not
+  updateRow: React.PropTypes.shape({
+    seq: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+    status: React.PropTypes.string,
+    category: React.PropTypes.string,
+    title: React.PropTypes.string,
+    owner: React.PropTypes.string,
+    priority: React.PropTypes.string
+  }),
+  addItemAction: React.PropTypes.func,
+  editItemAction: React.PropTypes.func,
+  deleteItemAction: React.PropTypes.func,
+  openPopModal: React.PropTypes.func,
+  closePopModal: React.PropTypes.func
 };
