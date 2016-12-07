@@ -21,7 +21,7 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
     beforeEach(function() {
       modalInstance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <PopModal show displayData={dataList[1]} />
+          <PopModal modalShow displayData={dataList[1]} />
         </Wrapper>
       );
     });

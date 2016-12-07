@@ -21,7 +21,7 @@ describe('public/javascripts/components/table.jsx Spec', () => {
     beforeEach(function() {
       instance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <Table dataList={dataList} />
+          <Table dataList={dataList} modalShow={false} updateRow={{}} />
         </Wrapper>
       );
     });
@@ -37,7 +37,6 @@ describe('public/javascripts/components/table.jsx Spec', () => {
 
     it('Should render button correctly.', () => {
       const button = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-
       should.exist(button);
       button[0].textContent.should.be.equal('Add');
       for (let i = 1; i < button.length; i += 1) {
