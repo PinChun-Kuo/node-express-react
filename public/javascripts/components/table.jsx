@@ -12,11 +12,11 @@ export default class tableContent extends React.Component {
   }
 
   addClick() {
-    this.props.openPopModal(null, this.props.dataList);
+    this.props.openPopModal(null);
   }
 
-  editClick(seq) {
-    this.props.openPopModal(seq, this.props.dataList);
+  editClick(editRow) {
+    this.props.openPopModal(editRow);
   }
 
   deleteClick(seq) {
@@ -52,7 +52,7 @@ export default class tableContent extends React.Component {
         <td className='center title'>{number.title}</td>
         <td className='center owner'>{number.owner}</td>
         <td className='center priority'>{number.priority}</td>
-        <td className='editBtn'><button onClick={() => this.editClick(number.seq)}>Edit</button></td>
+        <td className='editBtn'><button onClick={() => this.editClick(number)}>Edit</button></td>
         <td className='deleteBtn'><button onClick={() => this.deleteClick(number.seq)}>Delete</button></td>
       </tr>
     ));

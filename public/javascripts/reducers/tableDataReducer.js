@@ -2,15 +2,13 @@ import { tableActionaType } from '../actions/tableAction';
 import { dataList } from '../data/tableData';
 
 export default function(state = dataList, action) {
-  // console.log('tableActionaType : ', tableActionaType);
   switch (action.type) {
     case tableActionaType.addItem: {
       const newState = Object.assign([], state);
-      const newItem = Object.assign({}, action.payload.addRow);
       const length = newState.length;
       const insertItemKey = Number(newState[length - 1].seq) + 1;     // calculate key value for new item
-      newItem.seq = insertItemKey;
-      newState.push(newItem);
+      action.payload.addRow.seq = insertItemKey;
+      newState.push(action.payload.addRow);
       return newState;
     }
     case tableActionaType.editItem: {

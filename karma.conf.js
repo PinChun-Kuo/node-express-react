@@ -14,8 +14,12 @@ module.exports = function(config) {
 
         // List of files/patterns to load in the browser.
         files: [
-            './test/table.test.jsx',
-            './test/popModal.test.jsx'
+            './test/components/table.test.jsx',
+            './test/components/popModal.test.jsx',
+            './test/actions/tableAction.test.js',
+            './test/reducers/popModalReducer.test.js',
+            './test/reducers/updateRowReducer.test.js',
+            './test/reducers/tableDataReducer.test.js'
         ],
 
         // List of plugins to load. A plugin can be a string (in which case it will be required by Karma) or an inlined plugin - Object.
@@ -30,8 +34,12 @@ module.exports = function(config) {
         // Preprocessors in Karma allow you to do some work with your files before they get served to the browser.
         // These are configured in the preprocessors block of the configuration file:
         preprocessors: {
-            './test/table.test.jsx': ['webpack'],
-            './test/popModal.test.jsx': ['webpack']
+            './test/components/table.test.jsx': ['webpack'],
+            './test/components/popModal.test.jsx': ['webpack'],
+            './test/actions/tableAction.test.js': ['webpack'],
+            './test/reducers/popModalReducer.test.js': ['webpack'],
+            './test/reducers/updateRowReducer.test.js': ['webpack'],
+            './test/reducers/tableDataReducer.test.js': ['webpack']
         },
 
         webpack: require('./webpack.config.js'),

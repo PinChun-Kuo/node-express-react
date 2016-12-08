@@ -1,9 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Table from '../components/table';
-// import { addAction, editAction, deleteAction } from '../actions/tableDataAction';
-// import { openAction, closeAction } from '../actions/popModalAction';
-// import { emptyAction, nonEmptyAction } from '../actions/updateRowAction';
 import { addItemAction, editItemAction, deleteItemAction, openPopModal, closePopModal } from '../actions/tableAction';
 
 const totalActions = {
@@ -16,7 +13,6 @@ const totalActions = {
 
 // 將 state 绑定到 props
 function mapStateToProps(state) {
-  // console.log('inside mapStateToProps state : ', state);
   return {
     dataList: state.dataList,
     modalShow: state.modalShow,
@@ -26,7 +22,6 @@ function mapStateToProps(state) {
 
 // 將 action 的所有方法绑定到 props 上
 function mapDispatchToProps(dispatch) {
-  // console.log('inside mapDispatchToProps dispatch : ', dispatch);
   return bindActionCreators(totalActions, dispatch);
 }
 

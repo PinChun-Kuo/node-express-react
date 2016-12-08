@@ -33,12 +33,11 @@ export function deleteItemAction(seq) {
   };
 }
 
-export function openPopModal(seq, dataList) {
+export function openPopModal(editRow) {
   return {
     type: tableActionaType.openPopModal,
     payload: {
-      seq: seq,
-      dataList: dataList
+      editRow: editRow
     }
   };
 }

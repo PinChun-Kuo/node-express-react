@@ -1,8 +1,8 @@
 import React from 'react';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
-import wrapper from './wrapper';
-import Table from '../public/javascripts/components/table';
+import wrapper from '../wrapper';
+import Table from '../../public/javascripts/components/table';
 
 const dataList = [
   { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
@@ -12,13 +12,20 @@ const dataList = [
 ];
 
 const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
-
+// for event test :
+// const spy = sinon.spy();
 describe('public/javascripts/components/table.jsx Spec', () => {
   let instance;
   const Wrapper = wrapper();
 
   describe('Render table', () => {
     beforeEach(function() {
+      // for event test :
+      // const action = {
+      //   openPopModal: spy
+      // };
+      // <Table dataList={dataList} modalShow={false} updateRow={{}} {...action}/>
+
       instance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
           <Table dataList={dataList} modalShow={false} updateRow={{}} />
@@ -47,6 +54,18 @@ describe('public/javascripts/components/table.jsx Spec', () => {
         }
       }
     });
+
+    // for event test :
+    // it('Should open modal after click add button.', () => {
+    //   const button = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
+    //   console.log('\n\n isElement() : ', ReactTestUtils.isElement(button[0]));
+    //   // console.log('\n\n instance : ', instance);
+    //   console.log('\n\n instance.props.children.props.modalShow : ', instance.props.children.props.modalShow);
+    //   ReactTestUtils.Simulate.click(button[0]);
+    //   spy.calledOnce.should.be.ok;
+    //
+    //   // console.log('\n\n instance.props.children.props.modalShow : ', instance.props.children.props.modalShow);
+    // });
 
     it('Should render table correctly.', () => {
       const table = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'table');

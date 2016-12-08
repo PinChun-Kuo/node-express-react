@@ -37,6 +37,7 @@
     "id-length": 0,
     "no-unused-expressions": 0,
     "jsx-quotes": ["error", "prefer-single"],
+    "no-param-reassign": ["error", { "props": false }],
     "no-alert": 0,
     "linebreak-style": [0, "windows"]
   },

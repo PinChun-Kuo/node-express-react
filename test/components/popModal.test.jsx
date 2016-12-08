@@ -1,8 +1,8 @@
 import React from 'react';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
-import wrapper from './wrapper';
-import PopModal from '../public/javascripts/components/popModal';
+import wrapper from '../wrapper';
+import PopModal from '../../public/javascripts/components/popModal';
 
 const dataList = [
   { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
@@ -50,6 +50,15 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
       closeBtn.textContent.should.be.equal('X');
       should.exist(closeBtn);
     });
+
+    // it('Should close modal after click close button.', () => {
+    //   const closeBtn = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'button');
+    //   console.log('\n\n closeBtn : ', closeBtn);
+    //   console.log('\n\n modalInstance : ', modalInstance);
+    //   console.log('\n\n modalInstance : ', modalInstance.context);
+    //   console.log('\n\n modalInstance.props.statusValue : ', modalInstance.state.statusValue);
+    //   ReactTestUtils.Simulate.click(closeBtn);
+    // });
 
     it('Should render form correctly.', () => {
       const input = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'input');
