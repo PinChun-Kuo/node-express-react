@@ -1,8 +1,8 @@
 import should from 'should';
 import popModalReducer from '../../public/javascripts/reducers/popModalReducer';
-import { tableActionaType } from '../../public/javascripts/actions/tableAction';
+import { tableActionaType } from '../../public/javascripts/actions/issueTableAction';
 
-const dataRow = {
+const issue = {
   seq: 1,
   status: 'Open',
   category: 'category1',
@@ -13,34 +13,34 @@ const dataRow = {
 
 describe('public/javascripts/reducers/popModalReducer.js Spec', () => {
   describe('PopModal reducer output', () => {
-    it('should handle add item.', () => {
+    it('should handle add issue.', () => {
       should.exist(popModalReducer(undefined, {
-        type: tableActionaType.addItem,
+        type: tableActionaType.addIssue,
         payload: {
-          addRow: dataRow
+          issue: issue
         }
       }));
 
       popModalReducer(undefined, {
-        type: tableActionaType.addItem,
+        type: tableActionaType.addIssue,
         payload: {
-          addRow: dataRow
+          issue: issue
         }
       }).should.be.equal(false);
     });
 
-    it('should handle edit item.', () => {
+    it('should handle edit issue.', () => {
       should.exist(popModalReducer(undefined, {
-        type: tableActionaType.editItem,
+        type: tableActionaType.editIssue,
         payload: {
-          editRow: dataRow
+          issue: issue
         }
       }));
 
       popModalReducer(undefined, {
-        type: tableActionaType.editItem,
+        type: tableActionaType.editIssue,
         payload: {
-          editRow: dataRow
+          issue: issue
         }
       }).should.be.equal(false);
     });
@@ -49,14 +49,14 @@ describe('public/javascripts/reducers/popModalReducer.js Spec', () => {
       should.exist(popModalReducer(undefined, {
         type: tableActionaType.openPopModal,
         payload: {
-          editRow: dataRow
+          issue: issue
         }
       }));
 
       popModalReducer(undefined, {
         type: tableActionaType.openPopModal,
         payload: {
-          editRow: dataRow
+          issue: issue
         }
       }).should.be.equal(true);
     });

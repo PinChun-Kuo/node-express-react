@@ -1,12 +1,12 @@
-import { tableActionaType } from '../actions/tableAction';
-import { modalShow } from '../data/tableData';
+import { tableActionaType } from '../actions/issueTableAction';
+import { modalShow } from '../data/constant';
 
 export default function(state = modalShow, action) {
   switch (action.type) {
-    case tableActionaType.addItem: {
+    case tableActionaType.addIssue: {
       return false;
     }
-    case tableActionaType.editItem: {
+    case tableActionaType.editIssue: {
       return false;
     }
     case tableActionaType.openPopModal: {

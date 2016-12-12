@@ -4,7 +4,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from '../wrapper';
 import PopModal from '../../public/javascripts/components/popModal';
 
-const dataList = [
+const issues = [
   { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
   { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
   { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
@@ -21,7 +21,7 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
     beforeEach(function() {
       modalInstance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <PopModal modalShow displayData={dataList[1]} />
+          <PopModal modalShow displayData={issues[1]} />
         </Wrapper>
       );
     });
@@ -69,7 +69,7 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
           input[i].value.should.be.equal('submit');
         } else {
           input[i].type.should.be.equal('text');
-          (input[i].value.toString()).should.be.equal(dataList[1][keys[i + 1]].toString());
+          (input[i].value.toString()).should.be.equal(issues[1][keys[i + 1]].toString());
         }
       }
       should.exist(input);

@@ -66,7 +66,7 @@ export default class popModal extends React.Component {
     if (EmptyIndex > -1) {     // check input empty or not
       alert(e.target[EmptyIndex].getAttribute('data-field-name') + ' can not be empty.');
     } else {
-      const newItem = {
+      const newIssue = {
         seq: this.props.displayData.seq || '',
         status: this.status.trim(),
         category: this.category.trim(),
@@ -75,7 +75,7 @@ export default class popModal extends React.Component {
         priority: this.priority.trim(),
       };
 
-      this.props.onModalSubmit(newItem);
+      this.props.onModalSubmit(newIssue);
     }
   }
 
@@ -88,7 +88,7 @@ export default class popModal extends React.Component {
       return (
         <div className='modalBackground'>
           <div className='modalBox'>
-            <h1>{Object.keys(this.props.displayData).length > 0 ? 'Edit Item > ' + this.props.displayData.seq : 'Add Item'}<span> *為必填欄位</span></h1>
+            <h1>{Object.keys(this.props.displayData).length > 0 ? 'Edit Issues > ' + this.props.displayData.seq : 'Add Issues'}<span> *為必填欄位</span></h1>
             <button className='closeBtn' onClick={this.handleClose}>X</button>
             <form onSubmit={this.handleSubmit}>
               <div>

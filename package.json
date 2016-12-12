@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node app.js",
     "build": "set NODE_ENV=production&& webpack -p --config webpack.config.js --progress --profile --colors && npm run start",
     "dev": "set NODE_ENV=development&& webpack-dev-server --devtool eval --progress --colors --content-base build",
     "test-win-karma": "./node_modules/.bin/karma start",
@@ -20,6 +20,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "node-sass": "^3.13.0",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.6",
     "react-bootstrap-table": "^2.5.8",
@@ -29,7 +31,9 @@
     "redux-actions": "^1.1.0",
     "redux-immutable": "^3.0.8",
     "sass-loader": "^4.0.2",
-    "serve-favicon": "~2.3.0"
+    "sequelize": "^3.27.0",
+    "serve-favicon": "~2.3.0",
+    "sync": "^0.2.5"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",

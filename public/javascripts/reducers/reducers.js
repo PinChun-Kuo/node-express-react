@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import tableDataReducer from './tableDataReducer';
+import issueTableReducer from './issueTableReducer';
 import popModalReducer from './popModalReducer';
-import updateRowReducer from './updateRowReducer';
+import updateIssueReducer from './updateIssueReducer';
 
 const rootReducer = combineReducers({
-  dataList: tableDataReducer,
+  issues: issueTableReducer,
   modalShow: popModalReducer,
-  updateRow: updateRowReducer
+  updateIssue: updateIssueReducer
 });
 
 export default rootReducer;

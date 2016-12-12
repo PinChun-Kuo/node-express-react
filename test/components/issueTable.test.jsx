@@ -2,9 +2,9 @@ import React from 'react';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from '../wrapper';
-import Table from '../../public/javascripts/components/table';
+import IssueTable from '../../public/javascripts/components/issueTable';
 
-const dataList = [
+const issues = [
   { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
   { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
   { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
@@ -14,28 +14,29 @@ const dataList = [
 const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
 // for event test :
 // const spy = sinon.spy();
-describe('public/javascripts/components/table.jsx Spec', () => {
+describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
   let instance;
   const Wrapper = wrapper();
 
-  describe('Render table', () => {
+  describe('Render issueTableAction', () => {
     beforeEach(function() {
       // for event test :
       // const action = {
       //   openPopModal: spy
       // };
-      // <Table dataList={dataList} modalShow={false} updateRow={{}} {...action}/>
+      // <IssueTable issues={issues} modalShow={false} updateIssue={{}} {...action}/>
 
       instance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <Table dataList={dataList} modalShow={false} updateRow={{}} />
+          <IssueTable issues={issues} modalShow={false} updateIssue={{}} />
         </Wrapper>
       );
+
+      // console.log('\n\n ---- instance ', instance);
     });
 
     it('Should render DOM correctly.', () => {
       const div = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-
       div[0].tagName.should.eql('DIV');
       div[0].childNodes[0].childNodes.length.should.eql(3);
       div[0].childNodes[0].childNodes[0].tagName.should.eql('BUTTON');
@@ -91,7 +92,7 @@ describe('public/javascripts/components/table.jsx Spec', () => {
       should.exist(th);
       for (let i = 0; i < keys.length; i += 1) {
         (th[i].className.indexOf('center ' + keys[i])).should.be.greaterThan(-1);
-        th[i].textContent.should.be.equal(dataList[0][keys[i]]);
+        th[i].textContent.should.be.equal(issues[0][keys[i]]);
       }
 
       const td = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'td');
@@ -111,7 +112,7 @@ describe('public/javascripts/components/table.jsx Spec', () => {
           td[i].childNodes[0].textContent.should.be.equal('Delete');
         } else { // check data context for each row
           (td[i].className.indexOf('center ' + keys[keysIndex])).should.be.greaterThan(-1);
-          (td[i].textContent.toString()).should.be.equal(dataList[dataListIndex][keys[keysIndex]].toString());
+          (td[i].textContent.toString()).should.be.equal(issues[dataListIndex][keys[keysIndex]].toString());
         }
       }
     });
