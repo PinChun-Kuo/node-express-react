@@ -1,10 +1,12 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../models/connectDB');
 var issueDB = require('../models/issueDB');
-// var isAnyEmptyOrNull = require('../../common/isAnyEmptyOrNull');
 
-function Get(callback) {
-  issueDB.findAll().then( function(issues) {
+function getAllIssues(callback) {
+  issueDB.findAll({
+    order: 'seq',
+    raw: true
+  }).then( function(issues) {
     if (issues.length === 0) {
       callback(true, 'There is no data.');
     } else {
@@ -13,13 +15,25 @@ function Get(callback) {
   });
 }
 
-function Post(data, callback) {
+function postIssue(data, callback) {
   issueDB.create(data).then( function(issue) {
-    callback(false, 'Successfully insert an issue.');
+    const postIssue = {
+      seq: issue.dataValues.seq,
+      status: issue.dataValues.status,
+      category: issue.dataValues.category,
+      title: issue.dataValues.title,
+      owner: issue.dataValues.owner,
+      priority: issue.dataValues.priority,
+    }
+    const result = {
+      message: 'Successfully insert an issue.',
+      postIssue: postIssue
+    };
+    callback(false, result);
   });
 }
 
-function Put(data, callback) {
+function updateIssue(data, callback) {
   issueDB.update({
     status: data.status,
     category: data.category,
@@ -39,13 +53,13 @@ function Put(data, callback) {
   });
 }
 
-function Delete(data, callback) {
+function deleteIssue(data, callback) {
   issueDB.destroy({
     where: {
       seq: data.seq
     }
   }).then( function(issue) {
-    if (issue.length === 1) {
+    if (issue === 1) {
       callback(false, 'Successfully delete an issue.');
     } else {
       callback(true, 'Delete an issue failed.');
@@ -54,8 +68,8 @@ function Delete(data, callback) {
 }
 
 module.exports = {
-  Get: Get,
-  Post: Post,
-  Put: Put,
-  Delete: Delete
+  getAllIssues: getAllIssues,
+  postIssue: postIssue,
+  updateIssue: updateIssue,
+  deleteIssue: deleteIssue
 };

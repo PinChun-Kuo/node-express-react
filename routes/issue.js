@@ -4,24 +4,24 @@ var router = express.Router();
 var issue = require('../libs/issue');
 
 function returnResult(req, res, error, result) {
-    if (error) {
+  if (error) {
       res.status(403);
-    }
+  }
 
-    res.json({
-      status: error ? false : true,
-      result: result
-    });
+  res.json({
+    status: error ? 403 : 200,
+    result: result
+  });
 }
 
 router.get('/', function(req, res) {
-  issue.Get(function(error, result) {
+  issue.getAllIssues(function(error, result) {
     returnResult(req, res, error, result);
   });
 });
 
 router.post('/', function(req, res) {
-  issue.Post({
+  issue.postIssue({
     status: req.body.status,
     category: req.body.category,
     title: req.body.title,
@@ -33,7 +33,7 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:seq', function(req, res) {
-  issue.Put({
+  issue.updateIssue({
     seq: req.params.seq,
     status: req.body.status,
     category: req.body.category,
@@ -46,7 +46,7 @@ router.put('/:seq', function(req, res) {
 });
 
 router.delete('/:seq', function(req, res) {
-  issue.Delete({
+  issue.deleteIssue({
       seq: req.params.seq
   }, function(error, result) {
       returnResult(req, res, error, result);

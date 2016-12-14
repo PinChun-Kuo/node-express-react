@@ -11,6 +11,10 @@ export default class issueTable extends React.Component {
     this.handleModalClose = this.handleModalClose.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getIssues();
+  }
+
   addClick() {
     this.props.openPopModal(null);
   }
@@ -37,15 +41,9 @@ export default class issueTable extends React.Component {
   }
 
   render() {
-    const issues = this.props.issues;
-    const tableHead = issues.filter(issue => issue.seq === 'Seq');
-    const tableHeadRow = Object.keys(tableHead[0]).map(number =>
-      <th className={'center ' + number}>{tableHead[0][number]}</th>
-    );
-
-    const tableData = issues.filter(issue => issue.seq !== 'Seq');
-    const tableDataRows = tableData.map(number => (
-      <tr>
+    const issues = this.props.response.issues;
+    const tableDataRows = issues.map(number => (
+      <tr key={number.seq}>
         <td className='center seq'>{number.seq}</td>
         <td className='center status'>{number.status}</td>
         <td className='center category'>{number.category}</td>
@@ -57,6 +55,10 @@ export default class issueTable extends React.Component {
       </tr>
     ));
 
+    if (this.props.response.errorMsg !== '') {
+      alert(this.props.response.errorMsg);
+    }
+
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
@@ -64,7 +66,12 @@ export default class issueTable extends React.Component {
         <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
-              {tableHeadRow}
+              <th className='center seq'>Seq</th>
+              <th className='center status'>Status</th>
+              <th className='center category'>Category</th>
+              <th className='center title'>Title</th>
+              <th className='center owner'>Owner</th>
+              <th className='center priority'>Priority</th>
             </tr>
           </thead>
           <tbody>
@@ -77,17 +84,20 @@ export default class issueTable extends React.Component {
 }
 
 issueTable.propTypes = {
-  issues: React.PropTypes.arrayOf(React.PropTypes.shape({
-    seq: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ]),
-    status: React.PropTypes.string,
-    category: React.PropTypes.string,
-    title: React.PropTypes.string,
-    owner: React.PropTypes.string,
-    priority: React.PropTypes.string
-  })).isRequired,
+  response: React.PropTypes.shape({
+    issues: React.PropTypes.arrayOf(React.PropTypes.shape({
+      seq: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+      ]),
+      status: React.PropTypes.string,
+      category: React.PropTypes.string,
+      title: React.PropTypes.string,
+      owner: React.PropTypes.string,
+      priority: React.PropTypes.string
+    })),
+    errorMsg: React.PropTypes.string
+  }).isRequired,
   modalShow: React.PropTypes.bool, // pop modal show or not
   updateIssue: React.PropTypes.shape({
     seq: React.PropTypes.oneOfType([
@@ -100,6 +110,7 @@ issueTable.propTypes = {
     owner: React.PropTypes.string,
     priority: React.PropTypes.string
   }),
+  getIssues: React.PropTypes.func,
   addIssueAction: React.PropTypes.func,
   editIssueAction: React.PropTypes.func,
   deleteIssueAction: React.PropTypes.func,

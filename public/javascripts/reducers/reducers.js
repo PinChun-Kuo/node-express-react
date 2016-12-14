@@ -4,7 +4,7 @@ import popModalReducer from './popModalReducer';
 import updateIssueReducer from './updateIssueReducer';
 
 const rootReducer = combineReducers({
-  issues: issueTableReducer,
+  response: issueTableReducer,
   modalShow: popModalReducer,
   updateIssue: updateIssueReducer
 });
