@@ -4,31 +4,36 @@ import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from '../wrapper';
 import IssueTable from '../../public/javascripts/components/issueTable';
 
-const issues = [
-  { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
-  { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
-  { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
-  { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
-];
+const renderData = {
+  issues: [
+    { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
+    { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
+    { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
+  ],
+  errorMsg: ''
+};
+const tableHeader = { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' };
+const issueKeys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
 
-const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
-// for event test :
-// const spy = sinon.spy();
 describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
   let instance;
   const Wrapper = wrapper();
+  // for event test
+  const spy = sinon.spy();
 
   describe('Render issueTableAction', () => {
     beforeEach(function() {
-      // for event test :
-      // const action = {
-      //   openPopModal: spy
-      // };
-      // <IssueTable issues={issues} modalShow={false} updateIssue={{}} {...action}/>
-
+      // for event test
+      const action = {
+        renderData: renderData,
+        modalShow: false,
+        updateIssue: {},
+        getIssues: spy
+      };
+      // <IssueTable {...action} />
       instance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <IssueTable issues={issues} modalShow={false} updateIssue={{}} />
+          <IssueTable {...action} />
         </Wrapper>
       );
 
@@ -90,9 +95,9 @@ describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
 
       // check table head column
       should.exist(th);
-      for (let i = 0; i < keys.length; i += 1) {
-        (th[i].className.indexOf('center ' + keys[i])).should.be.greaterThan(-1);
-        th[i].textContent.should.be.equal(issues[0][keys[i]]);
+      for (let i = 0; i < issueKeys.length; i += 1) {
+        (th[i].className.indexOf('center ' + issueKeys[i])).should.be.greaterThan(-1);
+        th[i].textContent.should.be.equal(tableHeader[issueKeys[i]]);
       }
 
       const td = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'td');
@@ -102,17 +107,17 @@ describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
       // check table body column
       should.exist(td);
       for (let i = 0; i < td.length; i += 1) {
-        dataListIndex = Math.floor(i / 8) + 1;
+        dataListIndex = Math.floor(i / 8);
         keysIndex = i % 8;
-        if (keysIndex === 6) { // check edit button for each row
+        if (keysIndex === issueKeys.length) { // check edit button for each row
           (td[i].className.indexOf('editBtn')).should.be.greaterThan(-1);
           td[i].childNodes[0].textContent.should.be.equal('Edit');
-        } else if (keysIndex === 7) { // check delete button for each row
+        } else if (keysIndex === (issueKeys.length + 1)) { // check delete button for each row
           (td[i].className.indexOf('deleteBtn')).should.be.greaterThan(-1);
           td[i].childNodes[0].textContent.should.be.equal('Delete');
         } else { // check data context for each row
-          (td[i].className.indexOf('center ' + keys[keysIndex])).should.be.greaterThan(-1);
-          (td[i].textContent.toString()).should.be.equal(issues[dataListIndex][keys[keysIndex]].toString());
+          (td[i].className.indexOf('center ' + issueKeys[keysIndex])).should.be.greaterThan(-1);
+          (td[i].textContent.toString()).should.be.equal(renderData.issues[dataListIndex][issueKeys[keysIndex]].toString());
         }
       }
     });

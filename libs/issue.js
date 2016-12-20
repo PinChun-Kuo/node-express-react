@@ -1,9 +1,9 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../models/connectDB');
-var issueDB = require('../models/issueDB');
+var issueTable = require('../models/issueTable');
 
 function getAllIssues(callback) {
-  issueDB.findAll({
+  issueTable.findAll({
     order: 'seq',
     raw: true
   }).then( function(issues) {
@@ -16,9 +16,8 @@ function getAllIssues(callback) {
 }
 
 function postIssue(data, callback) {
-  issueDB.create(data).then( function(issue) {
+  issueTable.create(data).then( function(issue) {
     const postIssue = {
-      seq: issue.dataValues.seq,
       status: issue.dataValues.status,
       category: issue.dataValues.category,
       title: issue.dataValues.title,
@@ -34,7 +33,7 @@ function postIssue(data, callback) {
 }
 
 function updateIssue(data, callback) {
-  issueDB.update({
+  issueTable.update({
     status: data.status,
     category: data.category,
     title: data.title,
@@ -54,7 +53,7 @@ function updateIssue(data, callback) {
 }
 
 function deleteIssue(data, callback) {
-  issueDB.destroy({
+  issueTable.destroy({
     where: {
       seq: data.seq
     }

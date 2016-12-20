@@ -41,7 +41,7 @@ export default class issueTable extends React.Component {
   }
 
   render() {
-    const issues = this.props.response.issues;
+    const issues = this.props.renderData.issues;
     const tableDataRows = issues.map(number => (
       <tr key={number.seq}>
         <td className='center seq'>{number.seq}</td>
@@ -55,8 +55,8 @@ export default class issueTable extends React.Component {
       </tr>
     ));
 
-    if (this.props.response.errorMsg !== '') {
-      alert(this.props.response.errorMsg);
+    if (this.props.renderData.errorMsg !== '') {
+      alert(this.props.renderData.errorMsg);
     }
 
     return (
@@ -84,7 +84,7 @@ export default class issueTable extends React.Component {
 }
 
 issueTable.propTypes = {
-  response: React.PropTypes.shape({
+  renderData: React.PropTypes.shape({
     issues: React.PropTypes.arrayOf(React.PropTypes.shape({
       seq: React.PropTypes.oneOfType([
         React.PropTypes.string,

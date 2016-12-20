@@ -40,6 +40,7 @@ module.exports = {
     },
     // 其他解決方案配置
     resolve: {
+      // 設定後只需要寫 require('file') 而不用寫成 require('file.jsx')
       extensions: ['', '.js', '.jsx']
     },
     // devServer 則是 webpack-dev-server 設定

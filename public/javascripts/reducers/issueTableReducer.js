@@ -8,20 +8,21 @@ const initValue = {
 export default function(state = initValue, action) {
   switch (action.type) {
     case tableActionaType.getIssuesSuccess: {
-      const newState = Object.assign({}, state);
-      newState.issues = action.payload.issues;
-      newState.errorMsg = '';
-      return newState;
+      return {
+        issues: action.payload.issues,
+        errorMsg: ''
+      };
     }
     case tableActionaType.addIssue: {
-      const newState = Object.assign({}, state);
-      newState.issues.push(action.payload.addIssue);
-      newState.errorMsg = '';
-      return newState;
+      return {
+        issues: [...state.issues, action.payload.addIssue],
+        errorMsg: ''
+      };
     }
     case tableActionaType.editIssue: {
-      const newState = Object.assign({}, state);
-      newState.issues = newState.issues.map((issue) => {
+      const newState = {};
+
+      newState.issues = state.issues.map((issue) => {
         if (issue.seq === action.payload.editIssue.seq) {
           return action.payload.editIssue;
         }
@@ -31,15 +32,16 @@ export default function(state = initValue, action) {
       return newState;
     }
     case tableActionaType.deleteIssue: {
-      const newState = Object.assign({}, state);
-      newState.issues = newState.issues.filter(issue => issue.seq !== action.payload.seq);
+      const newState = {};
+      newState.issues = state.issues.filter(issue => issue.seq !== action.payload.seq);
       newState.errorMsg = '';
       return newState;
     }
     case tableActionaType.actionFail: {
-      const newState = Object.assign({}, state);
-      newState.errorMsg = action.payload.errorMsg;
-      return newState;
+      return {
+        issues: [...state.issues],
+        errorMsg: action.payload.errorMsg
+      };
     }
     default:
       return state;

@@ -1,7 +1,6 @@
 import { tableActionaType } from '../actions/issueTableAction';
-import { modalShow } from '../data/constant';
 
-export default function(state = modalShow, action) {
+export default function(state = false, action) {
   switch (action.type) {
     case tableActionaType.addIssue: {
       return false;

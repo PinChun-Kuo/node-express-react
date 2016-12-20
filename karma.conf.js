@@ -4,7 +4,7 @@ module.exports = function(config) {
         basePath: './',
 
         // List of test frameworks you want to use. Typically, you will set this to ['jasmine'], ['mocha'] or ['qunit']...
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'sinon'],
 
         // A list of browsers to launch and capture.
         browsers: ['Chrome'],
@@ -16,16 +16,17 @@ module.exports = function(config) {
         files: [
             './test/components/issueTable.test.jsx',
             './test/components/popModal.test.jsx',
-            './test/actions/issueTableAction.test.js',
+            // './test/actions/issueTableAction.test.js',
             './test/reducers/popModalReducer.test.js',
             './test/reducers/updateIssueReducer.test.js',
-            './test/reducers/issueTableReducer.test.js'
+            './test/reducers/issueTableReducer.test.js',
         ],
 
         // List of plugins to load. A plugin can be a string (in which case it will be required by Karma) or an inlined plugin - Object.
         plugins: [
             'karma-mocha',
             'karma-mocha-reporter',
+            'karma-sinon',
             'karma-phantomjs-launcher',
             'karma-chrome-launcher',
             'karma-webpack'
@@ -36,10 +37,10 @@ module.exports = function(config) {
         preprocessors: {
             './test/components/issueTable.test.jsx': ['webpack'],
             './test/components/popModal.test.jsx': ['webpack'],
-            './test/actions/issueTableAction.test.js': ['webpack'],
+            // './test/actions/issueTableAction.test.js': ['webpack'],
             './test/reducers/popModalReducer.test.js': ['webpack'],
             './test/reducers/updateIssueReducer.test.js': ['webpack'],
-            './test/reducers/issueTableReducer.test.js': ['webpack']
+            './test/reducers/issueTableReducer.test.js': ['webpack'],
         },
 
         webpack: require('./webpack.config.js'),

@@ -16,7 +16,7 @@ const totalActions = {
 // This function is used to convert redux global state to desired props.
 function mapStateToProps(state) {
   return {
-    response: state.response,
+    renderData: state.renderData,
     modalShow: state.modalShow,
     updateIssue: state.updateIssue
   };
