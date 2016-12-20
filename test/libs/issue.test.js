@@ -1,6 +1,6 @@
 var should = require('should');
-var issue = require('../../libs/issue');
 var Sequelize = require('sequelize');
+var issue = require('../../libs/issue');
 // var issueTable = require('../../models/issueTable');
 
 var addIssue = {
@@ -21,8 +21,7 @@ const editIssue = {
 };
 
 const deleteIssue = {
-  seq: 5,
-
+  seq: 5
 };
 
 describe('lib/issue.js Spec', () => {
@@ -91,7 +90,7 @@ describe('lib/issue.js Spec', () => {
       //   paranoid: true
       // });
 
-      const issueTable = require('../../models/issueTable');
+      var issueTable = require('../../models/issueTable');
       // creat table
       issueTable.sync({
         force: true
