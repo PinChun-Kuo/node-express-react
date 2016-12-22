@@ -17,6 +17,7 @@ function getAllIssues(callback) {
 function postIssue(data, callback) {
   issueTable.create(data).then( function(issue) {
     const postIssue = {
+      seq: issue.dataValues.seq,
       status: issue.dataValues.status,
       category: issue.dataValues.category,
       title: issue.dataValues.title,
