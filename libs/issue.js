@@ -1,5 +1,4 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../models/connectDB');
+require('../models/connectDB');
 var issueTable = require('../models/issueTable');
 
 function getAllIssues(callback) {

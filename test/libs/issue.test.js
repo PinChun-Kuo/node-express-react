@@ -1,19 +1,19 @@
 var should = require('should');
 var Sequelize = require('sequelize');
 var issue = require('../../libs/issue');
-// var issueTable = require('../../models/issueTable');
+var issueTable = require('../../models/issueTable');
 
 var addIssue = {
-  status: 'Close',
-  category: 'category6',
-  title: 'title6',
-  owner: 'owner6',
-  priority: 'P6',
+  status: 'Processing',
+  category: 'category4',
+  title: 'title4',
+  owner: 'owner4',
+  priority: 'P4',
 }
 
 const editIssue = {
   seq: 1,
-  status: 'Close',
+  status: 'Processing',
   category: 'category111',
   title: 'title111',
   owner: 'Owner111',
@@ -27,81 +27,15 @@ const deleteIssue = {
 describe('lib/issue.js Spec', () => {
   describe('DB CRUD action', () => {
     before( function(done) {
-      this.timeout(15000);
-      // var sequelize = new Sequelize('issueTrackerTest', 'postgres', 12345678, {
-      //   dialect: 'postgres',
-      //   host: process.env.HOST,
-      //   port: 5432,
-      //   timezone: 'Asia/Taipei',
-      //   define: {
-      //     timestamps: true
-      //   }
-      // });
-      //
-      // sequelize.authenticate().then(function() {
-      //   console.log('Connection has been established successfully.');
-      // }).catch(function(error) {
-      //   console.log('Unable to connect to the database:', error);
-      // });
-      //
-      // const issueTable = sequelize.define('issue', {
-      //   seq: {
-      //     type: Sequelize.INTEGER,
-      //     autoIncrement: true,
-      //     primaryKey: true
-      //   },
-      //   status: {
-      //     type: Sequelize.STRING,
-      //     allowNull: false,
-      //     validate: {
-      //       notEmpty: true
-      //     }
-      //   },
-      //   category: {
-      //     type: Sequelize.STRING,
-      //     allowNull: false,
-      //     validate: {
-      //       notEmpty: true
-      //     }
-      //   },
-      //   title: {
-      //     type: Sequelize.STRING,
-      //     allowNull: false,
-      //     validate: {
-      //       notEmpty: true
-      //     }
-      //   },
-      //   owner: {
-      //     type: Sequelize.STRING,
-      //     allowNull: false,
-      //     validate: {
-      //       notEmpty: true
-      //     }
-      //   },
-      //   priority: {
-      //     type: Sequelize.STRING,
-      //     allowNull: false,
-      //     validate: {
-      //       notEmpty: true
-      //     }
-      //   }
-      // }, {
-      //   freezeTableName: true,
-      //   paranoid: true
-      // });
-
-      var issueTable = require('../../models/issueTable');
-      // creat table
+      // insert data to table
       issueTable.sync({
         force: true
       }).then(function() {
         // insert fake data
         return issueTable.bulkCreate([
           { status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
-          { status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
-          { status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' },
-          { status: 'Pending', category: 'category4', title: 'title4', owner: 'Owner4', priority: 'P4' },
-          { status: 'Processing', category: 'category5', title: 'title5', owner: 'Owner5', priority: 'P5' }
+          { status: 'Close', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
+          { status: 'Pending', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
         ]).then( function() {
           done();
         });
@@ -112,7 +46,7 @@ describe('lib/issue.js Spec', () => {
       issue.getAllIssues( function(error, result) {
         console.log('\n\n --- getAllIssues');
         if(!error) {
-          result.length.should.be.equal(5);
+          result.length.should.be.equal(3);
           done();
         } else {
           result.length.should.be.equal('There is no data.');

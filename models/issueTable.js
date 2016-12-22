@@ -1,7 +1,5 @@
 var Sequelize = require('sequelize');
-// import Sequelize from 'sequelize';
-var sequelize = require('./connectDB');
-// import sequelize from './connectDB';
+var sequelize = require('./DB.config');
 
 const issueTable = sequelize.define('issue', {
   seq: {
@@ -49,19 +47,19 @@ const issueTable = sequelize.define('issue', {
   paranoid: true
 });
 
-if (!process.env.test) {
-  issueTable.sync({
-    force: false
-  }).then(function() {
-    // table created
-    return issueTable.bulkCreate([
-      { status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
-      { status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
-      { status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' },
-      { status: 'Pending', category: 'category4', title: 'title4', owner: 'Owner4', priority: 'P4' },
-      { status: 'Processing', category: 'category5', title: 'title5', owner: 'Owner5', priority: 'P5' }
-    ]);
-  });
-}
+// if (!process.env.test) {
+//   issueTable.sync({
+//     force: false
+//   }).then(function() {
+//     // table created
+//     issueTable.bulkCreate([
+//       { status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
+//       { status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
+//       { status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' },
+//       { status: 'Pending', category: 'category4', title: 'title4', owner: 'Owner4', priority: 'P4' },
+//       { status: 'Processing', category: 'category5', title: 'title5', owner: 'Owner5', priority: 'P5' }
+//     ]);
+//   });
+// }
 
 module.exports = issueTable;

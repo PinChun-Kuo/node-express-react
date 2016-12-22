@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var issue = require('../libs/issue');
 
 function returnResult(req, res, error, result) {

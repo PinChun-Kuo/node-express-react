@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var index = require('./routes/index');
 var issue = require('./routes/issue');
+var issueTable = require('./models/issueTable');
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -45,7 +46,7 @@ var setHeader = function(req, res, next) {
 };
 
 app.use('/', index);
-app.use('/issue', setHeader, issue);
+// app.use('/issue', setHeader, issue);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -61,8 +62,36 @@ app.use(function (err, req, res, next) {
 })
 
 const port = process.env.PORT || 3000;
-app.listen(port, function () {
-    console.log('listening on port', port);
-});
+if (!process.env.test) {
+  if(process.env.NODE_ENV === 'production') {
+    issueTable.sync({
+      force: false
+    }).then( function() {
+      app.use('/issue', setHeader, issue);
+    }).then( function() {
+      app.listen(port, function () {
+          console.log('\nlistening on port', port);
+      });
+    });
+  } else {
+    issueTable.sync({
+      force: true
+    }).then(function() {
+      issueTable.bulkCreate([
+        { status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
+        { status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
+        { status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' },
+        { status: 'Pending', category: 'category4', title: 'title4', owner: 'Owner4', priority: 'P4' },
+        { status: 'Processing', category: 'category5', title: 'title5', owner: 'Owner5', priority: 'P5' }
+      ]).then( function() {
+        app.use('/issue', setHeader, issue);
+      }).then( function() {
+        app.listen(port, function () {
+            console.log('\nlistening on port', port);
+        });
+      });
+    });
+  }
+}
 
 module.exports = app;
