@@ -12,7 +12,7 @@ module.exports = {
     entry: {
         'index': './public/javascripts/index.jsx'
     },
-    // output 是放入產生出來的結果的相關參數
+    // output 為進行完 eslint、babel loader 轉譯後的檔案位置
     output: {
         path: `${__dirname}/dist`,
         filename: '[name].js'
