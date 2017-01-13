@@ -38,7 +38,11 @@ describe('lib/issue.js Spec', () => {
           { status: 'Pending', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
         ]).then( function() {
           done();
+        }).catch( function(error) {
+          console.log('\n error is : ', error);
         });
+      }).catch( function(error) {
+        console.log('\n error is : ', error);
       });
     });
 

@@ -70,8 +70,10 @@ if (!process.env.test) {
       app.use('/issue', setHeader, issue);
     }).then( function() {
       app.listen(port, function () {
-          console.log('\nlistening on port', port);
+        console.log('\nlistening on port', port);
       });
+    }).catch( function(err) {
+      console.log('\n\n err is : ', err);
     });
   } else {
     issueTable.sync({
@@ -89,7 +91,11 @@ if (!process.env.test) {
         app.listen(port, function () {
             console.log('\nlistening on port', port);
         });
+      }).catch( function(err) {
+        console.log('\n\n err is : ', err);
       });
+    }).catch( function(err) {
+      console.log('\n\n err is : ', err);
     });
   }
 }
