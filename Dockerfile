@@ -23,5 +23,4 @@ WORKDIR /usr/project/issuetracker
 ADD . /usr/project/issuetracker
 RUN npm install
 
-#ENTRYPOINT createdb -U postgres issueTracker
 EXPOSE 3000
