@@ -1,11 +1,12 @@
-require('../models/connectDB');
 import issueTable from '../models/issueTable';
+
+require('../models/connectDB');
 
 function getAllIssues(callback) {
   issueTable.findAll({
     order: 'seq',
     raw: true
-  }).then( function(issues) {
+  }).then(function(issues) {
     if (issues.length === 0) {
       callback(true, 'There is no data.');
     } else {
@@ -15,18 +16,19 @@ function getAllIssues(callback) {
 }
 
 function postIssue(data, callback) {
-  issueTable.create(data).then( function(issue) {
-    const postIssue = {
+  issueTable.create(data).then(function(issue) {
+    const postIssueData = {
       seq: issue.dataValues.seq,
       status: issue.dataValues.status,
       category: issue.dataValues.category,
       title: issue.dataValues.title,
       owner: issue.dataValues.owner,
       priority: issue.dataValues.priority,
-    }
+    };
+
     const result = {
       message: 'Successfully insert an issue.',
-      postIssue: postIssue
+      postIssue: postIssueData
     };
     callback(false, result);
   });
@@ -40,10 +42,10 @@ function updateIssue(data, callback) {
     owner: data.owner,
     priority: data.priority
   }, {
-      where: {
-        seq: data.seq
+    where: {
+      seq: data.seq
     }
-  }).then( function(issue) {
+  }).then(function(issue) {
     if (issue.length === 1) {
       callback(false, 'Successfully update the issue.');
     } else {
@@ -57,7 +59,7 @@ function deleteIssue(data, callback) {
     where: {
       seq: data.seq
     }
-  }).then( function(issue) {
+  }).then(function(issue) {
     if (issue === 1) {
       callback(false, 'Successfully delete an issue.');
     } else {

@@ -1,10 +1,11 @@
 import express from 'express';
 import issue from '../libs/issue';
+
 const router = express.Router();
 
 function returnResult(req, res, error, result) {
   if (error) {
-      res.status(403);
+    res.status(403);
   }
 
   res.json({
@@ -46,9 +47,9 @@ router.put('/:seq', function(req, res) {
 
 router.delete('/:seq', function(req, res) {
   issue.deleteIssue({
-      seq: req.params.seq
+    seq: req.params.seq
   }, function(error, result) {
-      returnResult(req, res, error, result);
+    returnResult(req, res, error, result);
   });
 });
 

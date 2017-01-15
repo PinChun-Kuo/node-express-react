@@ -14,8 +14,8 @@ import sequelize from './DB.config';
 //   console.log('\nUnable to connect to the database:', error);
 // });
 
-sequelize.authenticate().then( function() {
+sequelize.authenticate().then(function() {
   console.log('\nConnection has been established successfully.');
-}).catch( function(error) {
+}).catch(function(error) {
   console.log('\nUnable to connect to the database:', error);
 });
