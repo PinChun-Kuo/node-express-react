@@ -1,9 +1,9 @@
-var should = require('should');
-var Sequelize = require('sequelize');
-var issue = require('../../libs/issue');
-var issueTable = require('../../models/issueTable');
+import should from 'should';
+import Sequelize from 'sequelize';
+import issue from '../../libs/issue';
+import issueTable from '../../models/issueTable';
 
-var addIssue = {
+const addIssue = {
   status: 'Processing',
   category: 'category4',
   title: 'title4',
@@ -48,7 +48,6 @@ describe('lib/issue.js Spec', () => {
 
     it('Should fetch data from DB', (done) => {
       issue.getAllIssues( function(error, result) {
-        console.log('\n\n --- getAllIssues');
         if(!error) {
           result.length.should.be.equal(3);
           done();
@@ -61,7 +60,6 @@ describe('lib/issue.js Spec', () => {
 
     it('Should add data to DB', (done) => {
       issue.postIssue(addIssue, function(error, result) {
-        console.log('\n\n --- postIssue');
         if(!error) {
           result.message.should.be.equal('Successfully insert an issue.');
           result.postIssue.status.should.be.equal(addIssue.status);

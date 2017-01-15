@@ -1,5 +1,5 @@
 require('../models/connectDB');
-var issueTable = require('../models/issueTable');
+import issueTable from '../models/issueTable';
 
 function getAllIssues(callback) {
   issueTable.findAll({

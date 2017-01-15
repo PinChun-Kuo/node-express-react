@@ -1,4 +1,4 @@
-var sequelize = require('./DB.config')
+import sequelize from './DB.config';
 
 // if(process.env.NODE_ENV === 'production') {
 //   var connection = sequelize.sync({

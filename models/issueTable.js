@@ -1,5 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = require('./DB.config');
+import Sequelize from 'sequelize';
+import sequelize from './DB.config';
 
 const issueTable = sequelize.define('issue', {
   seq: {

@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var issue = require('../libs/issue');
+import express from 'express';
+import issue from '../libs/issue';
+const router = express.Router();
 
 function returnResult(req, res, error, result) {
   if (error) {
