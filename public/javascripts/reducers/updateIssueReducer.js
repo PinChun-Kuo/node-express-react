@@ -1,12 +1,24 @@
 import { tableActionaType } from '../actions/issueTableAction';
 
-export default function(state = {}, action) {
+const initValue = {
+  issue: {},
+  errorMsg: ''
+};
+
+export default function(state = initValue, action) {
   switch (action.type) {
-    case tableActionaType.openPopModal: {
-      if (action.payload.issue !== null) {
-        return action.payload.issue;
-      }
-      return {};
+    case tableActionaType.getIssue: {
+      console.log('action.payload.issue : ', action.payload.issue);
+      return {
+        issue: action.payload.issue,
+        errorMsg: ''
+      };
+    }
+    case tableActionaType.actionFail: {
+      return {
+        issues: [...state.issues],
+        errorMsg: action.payload.errorMsg
+      };
     }
     default:
       return state;

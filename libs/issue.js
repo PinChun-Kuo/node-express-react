@@ -15,6 +15,20 @@ function getAllIssues(callback) {
   });
 }
 
+function getIssue(data, callback) {
+  issueTable.findOne({
+    where: {
+      seq: data.seq
+    }
+  }).then(function(issues) {
+    if (issues.length === 0) {
+      callback(true, 'There is no data.');
+    } else {
+      callback(false, issues);
+    }
+  });
+}
+
 function postIssue(data, callback) {
   issueTable.create(data).then(function(issue) {
     const postIssueData = {
@@ -70,6 +84,7 @@ function deleteIssue(data, callback) {
 
 module.exports = {
   getAllIssues: getAllIssues,
+  getIssue: getIssue,
   postIssue: postIssue,
   updateIssue: updateIssue,
   deleteIssue: deleteIssue

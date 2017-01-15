@@ -1,11 +1,10 @@
 export const tableActionaType = {
-  getIssuesSuccess: 'fetch issues successfully',
+  getIssues: 'fetch issues',
+  getIssue: 'fetch special issue',
   addIssue: 'add issue',
   editIssue: 'edit issue',
   deleteIssue: 'delete issue',
-  actionFail: 'action fail',
-  openPopModal: 'open pop modal',
-  closePopModal: 'close pop modal'
+  actionFail: 'action fail'
 };
 
 export function getIssues() {
@@ -16,12 +15,39 @@ export function getIssues() {
       if (json.status === 200) {
         // When everything is ok, dispatching success action.
         dispatch({
-          type: tableActionaType.getIssuesSuccess,
+          type: tableActionaType.getIssues,
           payload: {
             issues: json.result
           }
         });
       } else {
+        dispatch({
+          type: tableActionaType.actionFail,
+          payload: {
+            errorMsg: json.result
+          }
+        });
+      }
+    });
+  };
+}
+
+export function getIssue(seq) {
+  return (dispatch) => {
+    fetch('http://' + process.env.HOST + ':' + process.env.PORT + '/issue/' + seq)
+    .then(response => response.json())
+    .then((json) => {
+      if (json.status === 200) {
+        // When everything is ok, dispatching success action.
+        console.log('json.result : ', json.result);
+        dispatch({
+          type: tableActionaType.getIssue,
+          payload: {
+            issue: json.result
+          }
+        });
+      } else {
+        console.log('json.result : ', json.result);
         dispatch({
           type: tableActionaType.actionFail,
           payload: {
@@ -131,20 +157,5 @@ export function deleteIssueAction(seq) {
         });
       }
     });
-  };
-}
-
-export function openPopModal(issue) {
-  return {
-    type: tableActionaType.openPopModal,
-    payload: {
-      issue: issue
-    }
-  };
-}
-
-export function closePopModal() {
-  return {
-    type: tableActionaType.closePopModal
   };
 }

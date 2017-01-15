@@ -7,7 +7,7 @@ const initValue = {
 
 export default function(state = initValue, action) {
   switch (action.type) {
-    case tableActionaType.getIssuesSuccess: {
+    case tableActionaType.getIssues: {
       return {
         issues: action.payload.issues,
         errorMsg: ''
