@@ -42,6 +42,12 @@ export default class issueTable extends React.Component {
 
   render() {
     const issues = this.props.renderData.issues;
+    let empty = false;
+
+    if (this.props.renderData.errorMsg !== '' || issues.length === 0) {
+      empty = true;
+    }
+
     const tableDataRows = issues.map(number => (
       <tr key={number.seq}>
         <td className='center seq'>{number.seq}</td>
@@ -55,14 +61,11 @@ export default class issueTable extends React.Component {
       </tr>
     ));
 
-    if (this.props.renderData.errorMsg !== '') {
-      alert(this.props.renderData.errorMsg);
-    }
-
     return (
       <div>
         <button onClick={this.addClick}>Add</button>
         <PopModal modalShow={this.props.modalShow} displayData={this.props.updateIssue} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
+        {empty ? <h2>There are no data.</h2> :
         <table className='table table-bordered table-striped table-hover'>
           <thead className='thead-inverse'>
             <tr>
@@ -78,6 +81,7 @@ export default class issueTable extends React.Component {
             {tableDataRows}
           </tbody>
         </table>
+        }
       </div>
     );
   }
