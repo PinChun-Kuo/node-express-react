@@ -138,6 +138,7 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
 
     it('should handle default.', () => {
       const newState = issueTableReducer(oldState, {});
+
       should.exist(newState);
       newState.issues.length.should.be.equal(oldState.issues.length);
       newState.errorMsg.should.be.equal(oldState.errorMsg);
