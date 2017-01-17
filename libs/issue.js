@@ -6,17 +6,15 @@ function getAllIssues(callback) {
   issueTable.findAll({
     order: 'seq',
     raw: true
-  }).then(function(issues) {
-    if (issues.length === 0) {
-      callback(true, 'There is no data.');
-    } else {
-      callback(false, issues);
-    }
+  }).then((issues) => {
+    callback(false, issues);
+  }).catch(() => {
+    callback(true, 'Fail to fetch issues.');
   });
 }
 
 function postIssue(data, callback) {
-  issueTable.create(data).then(function(issue) {
+  issueTable.create(data).then((issue) => {
     const postIssueData = {
       seq: issue.dataValues.seq,
       status: issue.dataValues.status,
@@ -31,6 +29,8 @@ function postIssue(data, callback) {
       postIssue: postIssueData
     };
     callback(false, result);
+  }).catch(() => {
+    callback(true, 'Fail to insert issue.');
   });
 }
 
@@ -45,12 +45,10 @@ function updateIssue(data, callback) {
     where: {
       seq: data.seq
     }
-  }).then(function(issue) {
-    if (issue.length === 1) {
-      callback(false, 'Successfully update the issue.');
-    } else {
-      callback(true, 'Update the issue failed.');
-    }
+  }).then(() => {
+    callback(false, 'Successfully update the issue.');
+  }).catch(() => {
+    callback(true, 'Fail to update issue.');
   });
 }
 
@@ -59,12 +57,10 @@ function deleteIssue(data, callback) {
     where: {
       seq: data.seq
     }
-  }).then(function(issue) {
-    if (issue === 1) {
-      callback(false, 'Successfully delete an issue.');
-    } else {
-      callback(true, 'Delete an issue failed.');
-    }
+  }).then(() => {
+    callback(false, 'Successfully delete an issue.');
+  }).catch(() => {
+    callback(true, 'Fail to delete issue.');
   });
 }
 

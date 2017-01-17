@@ -1,7 +1,7 @@
-import should from 'should';
-// import Sequelize from 'sequelize';
 import issue from '../../libs/issue';
 import issueTable from '../../models/issueTable';
+
+require('should');
 
 const addIssue = {
   status: 'Processing',
@@ -52,7 +52,7 @@ describe('lib/issue.js Spec', () => {
           result.length.should.be.equal(3);
           done();
         } else {
-          result.length.should.be.equal('There is no data.');
+          result.should.be.equal('Fail to fetch issues.');
           done();
         }
       });
@@ -68,6 +68,8 @@ describe('lib/issue.js Spec', () => {
           result.postIssue.owner.should.be.equal(addIssue.owner);
           result.postIssue.priority.should.be.equal(addIssue.priority);
           done();
+        } else {
+          result.should.be.equal('Fail to insert issue.');
         }
       });
     });
@@ -78,7 +80,7 @@ describe('lib/issue.js Spec', () => {
           result.should.be.equal('Successfully update the issue.');
           done();
         } else {
-          result.should.be.equal('Update the issue failed.');
+          result.should.be.equal('Fail to update issue.');
           done();
         }
       });
@@ -90,7 +92,7 @@ describe('lib/issue.js Spec', () => {
           result.should.be.equal('Successfully delete an issue.');
           done();
         } else {
-          result.should.be.equal('Delete an issue failed.');
+          result.should.be.equal('Fail to delete issue.');
           done();
         }
       });

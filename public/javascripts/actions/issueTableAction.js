@@ -18,7 +18,8 @@ export function getIssues() {
         dispatch({
           type: tableActionaType.getIssuesSuccess,
           payload: {
-            issues: json.result
+            issues: json.result,
+            successMsg: ''
           }
         });
       } else {
@@ -29,6 +30,13 @@ export function getIssues() {
           }
         });
       }
+    }).catch(() => {
+      dispatch({
+        type: tableActionaType.actionFail,
+        payload: {
+          errorMsg: 'Fail to fetch issues.'
+        }
+      });
     });
   };
 }
@@ -54,7 +62,8 @@ export function addIssueAction(issue) {
         dispatch({
           type: tableActionaType.addIssue,
           payload: {
-            addIssue: json.result.postIssue
+            addIssue: json.result.postIssue,
+            successMsg: json.result.message
           }
         });
       } else {
@@ -65,6 +74,13 @@ export function addIssueAction(issue) {
           }
         });
       }
+    }).catch(() => {
+      dispatch({
+        type: tableActionaType.actionFail,
+        payload: {
+          errorMsg: 'Fail to insert issues.'
+        }
+      });
     });
   };
 }
@@ -90,7 +106,8 @@ export function editIssueAction(issue) {
         dispatch({
           type: tableActionaType.editIssue,
           payload: {
-            editIssue: issue
+            editIssue: issue,
+            successMsg: json.result
           }
         });
       } else {
@@ -101,6 +118,13 @@ export function editIssueAction(issue) {
           }
         });
       }
+    }).catch(() => {
+      dispatch({
+        type: tableActionaType.actionFail,
+        payload: {
+          errorMsg: 'Fail to update issues.'
+        }
+      });
     });
   };
 }
@@ -119,7 +143,8 @@ export function deleteIssueAction(seq) {
         dispatch({
           type: tableActionaType.deleteIssue,
           payload: {
-            seq: seq
+            seq: seq,
+            successMsg: json.result
           }
         });
       } else {
@@ -130,6 +155,13 @@ export function deleteIssueAction(seq) {
           }
         });
       }
+    }).catch(() => {
+      dispatch({
+        type: tableActionaType.actionFail,
+        payload: {
+          errorMsg: 'Fail to delete issues.'
+        }
+      });
     });
   };
 }

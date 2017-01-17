@@ -44,8 +44,16 @@ export default class issueTable extends React.Component {
     const issues = this.props.renderData.issues;
     let empty = false;
 
-    if (this.props.renderData.errorMsg !== '' || issues.length === 0) {
+    if (issues.length === 0) {
       empty = true;
+    }
+
+    if (this.props.renderData.successMsg !== '') {
+      alert(this.props.renderData.successMsg);
+    }
+
+    if (this.props.renderData.errorMsg !== '') {
+      alert(this.props.renderData.errorMsg);
     }
 
     const tableDataRows = issues.map(number => (
@@ -100,6 +108,7 @@ issueTable.propTypes = {
       owner: React.PropTypes.string,
       priority: React.PropTypes.string
     })),
+    successMsg: React.PropTypes.string,
     errorMsg: React.PropTypes.string
   }).isRequired,
   modalShow: React.PropTypes.bool, // pop modal show or not
