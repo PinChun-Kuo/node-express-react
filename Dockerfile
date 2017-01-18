@@ -1,5 +1,4 @@
-#FROM node:6.9.4
-FROM postgres:9.4
+FROM postgres:latest
 
 MAINTAINER Chloe
 
