@@ -2,10 +2,12 @@ FROM postgres:latest
 
 MAINTAINER Chloe
 
+ARG NODE_ENV
+
 # make sure apt is up to date
 RUN apt-get update
 RUN apt-get install sudo -y
-RUN sudo apt-get install curl -y
+RUN apt-get install curl -y
 RUN apt-get install -y --no-install-recommends apt-utils
 
 # Install npm and nodejs
@@ -19,7 +21,7 @@ RUN mkdir -p /usr/project/issuetracker
 WORKDIR /usr/project/issuetracker
 
 # Install project dependencies
-ADD . /usr/project/issuetracker
-RUN npm install
+ADD ./build.sh /usr/project/issuetracker
+RUN /bin/bash -c "./build.sh"
 
 EXPOSE 3000
