@@ -8,21 +8,21 @@ else
 fi
 
 # check whether postgres container already exist or not
-if [ "`docker ps -a | grep issue_postgres_pro -c -F`" == 1 ]; then
-  if [ "`docker ps | grep issue_postgres_pro -c -F`" == 1 ]; then
+if [ "`docker ps -a | grep issue_postgres_dev -c -F`" == 1 ]; then
+  if [ "`docker ps | grep issue_postgres_dev -c -F`" == 1 ]; then
     echo 'Postgres container for issue already exists and started.'
   else
     echo 'Postgres container for issue already exists but not started.'
-    docker start issue_postgres_pro
+    docker start issue_postgres_dev
   fi
 else
   echo 'Create postgres container for issue.'
   # create postgres container
-  docker run --name issue_postgres_pro -e POSTGRES_PASSWORD=12345678 -d postgres
+  docker run --name issue_postgres_dev -e POSTGRES_PASSWORD=12345678 -d postgres
 fi
 
 # link both of them and create database by postgres role first
-docker run -P --name issue_tracker -p 3000:3000 --link issue_postgres_pro:postgres -e POSTGRES_DB=issueTracker -d chloe/issue_tracker
+docker run -P -v /Users/pinchun.kuo/Desktop/node-express-react:/usr/project/issuetracker --name issue_tracker_dev -p 3000:3000 --link issue_postgres_dev:postgres -e POSTGRES_DB=issueTrackerTest -d chloe/issue_tracker_dev
 
 # start the server
-docker exec -it issue_tracker /bin/bash -c "npm run start"
+docker exec -it issue_tracker_dev /bin/bash -c "npm run dev-backend"
