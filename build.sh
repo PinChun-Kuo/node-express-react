@@ -9,5 +9,4 @@ if [ "$NODE_ENV" == 'production' ]; then
   cd ..
   rm -rf node-express-react
   npm install
-  npm run build
 fi
