@@ -8,7 +8,6 @@ if [ "$NODE_ENV" == 'production' ]; then
   mv * ../
   cd ..
   rm -rf node-express-react
-  # install babel-cli in global to run server with babel-node due to es6
-  npm install babel-cli
   npm install
+  npm run build
 fi

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "export NODE_ENV=production&& export PORT=3000&& export HOST=127.0.0.1&& webpack -p --config webpack.config.js --progress --profile --colors && babel-node app.js",
+    "start": "export NODE_ENV=production&& export PORT=3000&& export HOST=127.0.0.1&& node_modules/.bin/babel-node app.js",
+    "build": "export NODE_ENV=production&& export PORT=3000&& export HOST=127.0.0.1&& webpack -p --config webpack.config.js --progress --profile --colors",
     "dev-backend": "export NODE_ENV=development&& export PORT=3000&& export HOST=127.0.0.1&& babel-node app.js",
     "dev-win": "set NODE_ENV=development&& set PORT=3000&& set HOST=127.0.0.1&& webpack-dev-server --devtool eval --progress --colors --content-base build",
     "dev-linux": "export NODE_ENV=development&& export PORT=3000&& export HOST=127.0.0.1&& webpack-dev-server --devtool eval --progress --colors --content-base build",
