@@ -11,10 +11,23 @@ import EditModal from './containers/editModal';
 
 require('../css/style.scss');
 
+const middleware = routerMiddleware(browserHistory);
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, middleware)
 );
+
+const history = syncHistoryWithStore(browserHistory, store);
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <App />
+//   </Provider>,
+//   document.getElementById('root')
+// );
+
+console.log('App : ', App);
+console.log('Modal : ', Modal);
 
 ReactDOM.render(
   <Provider store={store}>

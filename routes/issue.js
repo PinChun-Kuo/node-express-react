@@ -28,6 +28,14 @@ router.get('/:seq', function(req, res) {
   });
 });
 
+router.get('/:seq', function(req, res) {
+  issue.getIssue({
+    seq: req.params.seq
+  }, function(error, result) {
+    returnResult(req, res, error, result);
+  });
+});
+
 router.post('/', function(req, res) {
   issue.postIssue({
     status: req.body.status,
