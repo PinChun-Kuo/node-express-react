@@ -39,7 +39,8 @@
     "jsx-quotes": ["error", "prefer-single"],
     "no-param-reassign": ["error", { "props": false }],
     "no-alert": 0,
-    "linebreak-style": [0, "windows"]
+    "linebreak-style": [0, "windows"],
+    "class-methods-use-this": 1
   },
   "plugins": [
     "react"
