@@ -2,26 +2,19 @@ import React from 'react';
 import should from 'should';
 import ReactTestUtils from 'react-addons-test-utils';
 import wrapper from '../wrapper';
-import PopModal from '../../public/javascripts/components/popModal';
+import AddModal from '../../public/javascripts/components/addModal';
 
-const issues = [
-  { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' },
-  { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
-  { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
-  { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
-];
+const issue = { status: '', category: '', title: '', owner: '', priority: '' };
 
-const keys = ['seq', 'status', 'category', 'title', 'owner', 'priority'];
-
-describe('public/javascripts/components/popModal.jsx Spec', () => {
+describe('public/javascripts/components/addModal.jsx Spec', () => {
   let modalInstance;
   const Wrapper = wrapper();
 
-  describe('Render PopModal', () => {
+  describe('Render addModal', () => {
     beforeEach(function() {
       modalInstance = ReactTestUtils.renderIntoDocument(
         <Wrapper>
-          <PopModal modalShow displayData={issues[1]} />
+          <AddModal updateIssue={issue} />
         </Wrapper>
       );
     });
@@ -47,18 +40,9 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
     it('Should render close button correctly.', () => {
       const closeBtn = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'button');
       (closeBtn.className.indexOf('closeBtn')).should.be.greaterThan(-1);
-      closeBtn.textContent.should.be.equal('X');
+      closeBtn.textContent.should.be.equal('Cancel');
       should.exist(closeBtn);
     });
-
-    // it('Should close modal after click close button.', () => {
-    //   const closeBtn = ReactTestUtils.findRenderedDOMComponentWithTag(modalInstance, 'button');
-    //   console.log('\n\n closeBtn : ', closeBtn);
-    //   console.log('\n\n modalInstance : ', modalInstance);
-    //   console.log('\n\n modalInstance : ', modalInstance.context);
-    //   console.log('\n\n modalInstance.props.statusValue : ', modalInstance.state.statusValue);
-    //   ReactTestUtils.Simulate.click(closeBtn);
-    // });
 
     it('Should render form correctly.', () => {
       const input = ReactTestUtils.scryRenderedDOMComponentsWithTag(modalInstance, 'input');
@@ -69,7 +53,7 @@ describe('public/javascripts/components/popModal.jsx Spec', () => {
           input[i].value.should.be.equal('submit');
         } else {
           input[i].type.should.be.equal('text');
-          (input[i].value.toString()).should.be.equal(issues[1][keys[i + 1]].toString());
+          input[i].value.should.be.equal('');
         }
       }
       should.exist(input);

@@ -10,6 +10,7 @@ const renderData = {
     { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
     { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
   ],
+  successMsg: '',
   errorMsg: ''
 };
 const tableHeader = { seq: 'Seq', status: 'Status', category: 'Category', title: 'Title', owner: 'Owner', priority: 'Priority' };
@@ -21,7 +22,7 @@ describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
   // for event test
   const spy = sinon.spy();
 
-  describe('Render issueTableAction', () => {
+  describe('Render issueTable', () => {
     beforeEach(function() {
       // for event test
       const action = {
@@ -43,9 +44,9 @@ describe('public/javascripts/components/issueTableAction.jsx Spec', () => {
     it('Should render DOM correctly.', () => {
       const div = ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       div[0].tagName.should.eql('DIV');
-      div[0].childNodes[0].childNodes.length.should.eql(3);
-      div[0].childNodes[0].childNodes[0].tagName.should.eql('BUTTON');
-      div[0].childNodes[0].childNodes[2].tagName.should.eql('TABLE');
+      div[0].childNodes[0].childNodes.length.should.eql(2);
+      div[0].childNodes[0].childNodes[0].tagName.should.eql('A');
+      div[0].childNodes[0].childNodes[1].tagName.should.eql('TABLE');
     });
 
     it('Should render button correctly.', () => {
