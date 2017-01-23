@@ -73,33 +73,6 @@ export function getIssue(seq) {
   };
 }
 
-export function getIssue(seq) {
-  return (dispatch) => {
-    fetch('http://' + process.env.HOST + ':' + process.env.PORT + '/issue/' + seq)
-    .then(response => response.json())
-    .then((json) => {
-      if (json.status === 200) {
-        // When everything is ok, dispatching success action.
-        console.log('json.result : ', json.result);
-        dispatch({
-          type: tableActionaType.getIssue,
-          payload: {
-            issue: json.result
-          }
-        });
-      } else {
-        console.log('json.result : ', json.result);
-        dispatch({
-          type: tableActionaType.actionFail,
-          payload: {
-            errorMsg: json.result
-          }
-        });
-      }
-    });
-  };
-}
-
 export function addIssueAction(issue) {
   return (dispatch) => {
     fetch('http://' + process.env.HOST + ':' + process.env.PORT + '/issue', {

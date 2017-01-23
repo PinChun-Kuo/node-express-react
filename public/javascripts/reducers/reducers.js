@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 import issueTableReducer from './issueTableReducer';
 import updateIssueReducer from './updateIssueReducer';
 
