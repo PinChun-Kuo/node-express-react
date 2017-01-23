@@ -11,7 +11,7 @@ export default function(state = initValue, action) {
     case tableActionaType.getIssues: {
       return {
         issues: action.payload.issues,
-        successMsg: action.payload.successMsg,
+        successMsg: '',
         errorMsg: ''
       };
     }

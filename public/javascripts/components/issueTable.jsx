@@ -1,45 +1,20 @@
 import React from 'react';
-import { Link, IndexLink } from 'react-router';
-// import PopModal from './popModal';
+import { Link } from 'react-router';
 
 export default class issueTable extends React.Component {
   constructor(props) {
     super(props);
-    // this.addClick = this.addClick.bind(this);
-    // this.editClick = this.editClick.bind(this);
     this.deleteClick = this.deleteClick.bind(this);
-    // this.handleModalSubmit = this.handleModalSubmit.bind(this);
-    // this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentWillMount() {
     this.props.getIssues();
   }
 
-  // addClick() {
-  //   this.props.openPopModal(null);
-  // }
-  //
-  // editClick(editIssue) {
-  //   this.props.openPopModal(editIssue);
-  // }
-
   deleteClick(seq) {
     alert('Are you sure to delete this issue?');
     this.props.deleteIssueAction(seq);
   }
-
-  // handleModalSubmit(issue) {
-  //   if (Object.keys(this.props.updateIssue).length === 0) {     // add issues
-  //     this.props.addIssueAction(issue);
-  //   } else {     // edit issue
-  //     this.props.editIssueAction(issue);
-  //   }
-  // }
-  //
-  // handleModalClose() {
-  //   this.props.closePopModal();
-  // }
 
   render() {
     const issues = this.props.renderData.issues;
@@ -72,13 +47,9 @@ export default class issueTable extends React.Component {
 
     return (
       <div>
-<<<<<<< master
-        <button onClick={this.addClick}>Add</button>
-        <PopModal modalShow={this.props.modalShow} displayData={this.props.updateIssue} onModalSubmit={this.handleModalSubmit} onModalClose={this.handleModalClose} />
+        <Link to='/addIssue'><button>Add</button></Link>
         {empty ? <h2>There are no data.</h2> :
-=======
->>>>>>> HEAD~0
-        <table className='table table-bordered table-striped table-hover'>
+        <table className='table table-bordered table-hover'>
           <thead className='thead-inverse'>
             <tr>
               <th className='center seq'>Seq</th>
@@ -102,10 +73,7 @@ export default class issueTable extends React.Component {
 issueTable.propTypes = {
   renderData: React.PropTypes.shape({
     issues: React.PropTypes.arrayOf(React.PropTypes.shape({
-      seq: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
-      ]),
+      seq: React.PropTypes.number,
       status: React.PropTypes.string,
       category: React.PropTypes.string,
       title: React.PropTypes.string,
@@ -115,22 +83,6 @@ issueTable.propTypes = {
     successMsg: React.PropTypes.string,
     errorMsg: React.PropTypes.string
   }).isRequired,
-  // modalShow: React.PropTypes.bool, // pop modal show or not
-  // updateIssue: React.PropTypes.shape({
-  //   seq: React.PropTypes.oneOfType([
-  //     React.PropTypes.string,
-  //     React.PropTypes.number
-  //   ]),
-  //   status: React.PropTypes.string,
-  //   category: React.PropTypes.string,
-  //   title: React.PropTypes.string,
-  //   owner: React.PropTypes.string,
-  //   priority: React.PropTypes.string
-  // }),
   getIssues: React.PropTypes.func,
-  // addIssueAction: React.PropTypes.func,
-  // editIssueAction: React.PropTypes.func,
-  deleteIssueAction: React.PropTypes.func,
-  // openPopModal: React.PropTypes.func,
-  // closePopModal: React.PropTypes.func
+  deleteIssueAction: React.PropTypes.func
 };

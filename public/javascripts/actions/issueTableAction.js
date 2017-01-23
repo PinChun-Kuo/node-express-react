@@ -47,15 +47,14 @@ export function getIssue(seq) {
     .then((json) => {
       if (json.status === 200) {
         // When everything is ok, dispatching success action.
-        console.log('json.result : ', json.result);
         dispatch({
           type: tableActionaType.getIssue,
           payload: {
-            issue: json.result
+            issue: json.result,
+            successMsg: ''
           }
         });
       } else {
-        console.log('json.result : ', json.result);
         dispatch({
           type: tableActionaType.actionFail,
           payload: {
@@ -63,6 +62,13 @@ export function getIssue(seq) {
           }
         });
       }
+    }).catch(() => {
+      dispatch({
+        type: tableActionaType.actionFail,
+        payload: {
+          errorMsg: 'Fail to fetch special issues.'
+        }
+      });
     });
   };
 }

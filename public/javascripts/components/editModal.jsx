@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, hashHistory } from 'react-router';
 
 // check whether there is empty input
 function checkInputEmptyOrNot(formFields) {
@@ -11,7 +11,7 @@ function checkInputEmptyOrNot(formFields) {
   return -1;
 }
 
-export default class popModal extends React.Component {
+export default class editModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
@@ -20,6 +20,7 @@ export default class popModal extends React.Component {
     this.handleOwnerChange = this.handleOwnerChange.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.state = {
       statusValue: this.props.updateIssue.status,
       categoryValue: this.props.updateIssue.category,
@@ -27,7 +28,6 @@ export default class popModal extends React.Component {
       ownerValue: this.props.updateIssue.owner,
       priorityValue: this.props.updateIssue.priority
     };
-    console.log('this.state : ', this.state);
   }
 
   componentWillMount() {
@@ -72,7 +72,7 @@ export default class popModal extends React.Component {
       alert(e.target[EmptyIndex].getAttribute('data-field-name') + ' can not be empty.');
     } else {
       const newIssue = {
-        seq: this.props.updateIssue.seq || '',
+        seq: this.props.updateIssue.seq,
         status: this.status.trim(),
         category: this.category.trim(),
         title: this.title.trim(),
@@ -80,22 +80,25 @@ export default class popModal extends React.Component {
         priority: this.priority.trim(),
       };
 
-      if (Object.keys(this.props.updateIssue).length > 0) {
-        this.props.editIssueAction(newIssue);
-        browserHistory.push('/');
-      } else {
-        this.props.addIssueAction(newIssue);
-        browserHistory.push('/');
-      }
+      this.props.editIssueAction(newIssue);
+      hashHistory.push('/');
+    }
+  }
+
+  handleClose() {
+    if (process.env.NODE_ENV === 'development') {
+      hashHistory.push('/');
+    } else {
+      browserHistory.push('/');
     }
   }
 
   render() {
-    console.log('this.props.updateIssue : ', this.props.updateIssue);
     return (
       <div className='modalBackground'>
         <div className='modalBox'>
-          <h1>{Object.keys(this.props.updateIssue).length > 0 ? 'Edit Issues > ' + this.props.updateIssue.seq : 'Add Issues'}<span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 為必填欄位</span></h1>
+          <h1>Edit Issues {' > ' + this.props.seq}<span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 為必填欄位</span></h1>
+          <button className='closeBtn' onClick={this.handleClose}>Cancel</button>
           <form onSubmit={this.handleSubmit}>
             <div>
               &nbsp;Status : &nbsp;
@@ -126,24 +129,16 @@ export default class popModal extends React.Component {
 }
 
 
-popModal.propTypes = {
+editModal.propTypes = {
   updateIssue: React.PropTypes.shape({
-    seq: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-    ]),
+    seq: React.PropTypes.number,
     status: React.PropTypes.string,
     category: React.PropTypes.string,
     title: React.PropTypes.string,
     owner: React.PropTypes.string,
     priority: React.PropTypes.string
   }),
-  seq: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-  ]),
-  // onModalSubmit: React.PropTypes.func,
+  seq: React.PropTypes.number,
   getIssue: React.PropTypes.func,
-  addIssueAction: React.PropTypes.func,
   editIssueAction: React.PropTypes.func
 };
