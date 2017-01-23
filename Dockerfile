@@ -2,6 +2,8 @@ FROM postgres:latest
 
 MAINTAINER Chloe
 
+ARG NODE_ENV
+
 # make sure apt is up to date
 RUN apt-get update
 RUN apt-get install sudo -y
