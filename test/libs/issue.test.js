@@ -1,7 +1,7 @@
+import should from 'should';
+// import Sequelize from 'sequelize';
 import issue from '../../libs/issue';
 import issueTable from '../../models/issueTable';
-
-require('should');
 
 const addIssue = {
   status: 'Processing',
@@ -47,12 +47,29 @@ describe('lib/issue.js Spec', () => {
     });
 
     it('Should fetch data from DB', (done) => {
-      issue.getAllIssues(function(error, result) {
+      issue.getIssues(function(error, result) {
         if (!error) {
           result.length.should.be.equal(3);
           done();
         } else {
           result.should.be.equal('Fail to fetch issues.');
+          done();
+        }
+      });
+    });
+
+    it('Should fetch special data from DB', (done) => {
+      issue.getIssue(editIssue, function(error, result) {
+        if (!error) {
+          result.seq.should.be.equal(editIssue.seq);
+          result.status.should.be.equal(editIssue.status);
+          result.category.should.be.equal(editIssue.category);
+          result.title.should.be.equal(editIssue.title);
+          result.owner.should.be.equal(editIssue.owner);
+          result.priority.should.be.equal(editIssue.priority);
+          done();
+        } else {
+          result.should.be.equal('Fail to fetch special issue.');
           done();
         }
       });
@@ -68,8 +85,6 @@ describe('lib/issue.js Spec', () => {
           result.postIssue.owner.should.be.equal(addIssue.owner);
           result.postIssue.priority.should.be.equal(addIssue.priority);
           done();
-        } else {
-          result.should.be.equal('Fail to insert issue.');
         }
       });
     });
@@ -80,7 +95,7 @@ describe('lib/issue.js Spec', () => {
           result.should.be.equal('Successfully update the issue.');
           done();
         } else {
-          result.should.be.equal('Fail to update issue.');
+          result.should.be.equal('Update the issue failed.');
           done();
         }
       });
@@ -92,7 +107,7 @@ describe('lib/issue.js Spec', () => {
           result.should.be.equal('Successfully delete an issue.');
           done();
         } else {
-          result.should.be.equal('Fail to delete issue.');
+          result.should.be.equal('Delete an issue failed.');
           done();
         }
       });
