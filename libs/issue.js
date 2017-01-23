@@ -77,11 +77,7 @@ function deleteIssue(data, callback) {
 }
 
 module.exports = {
-<<<<<<< HEAD
   getIssues: getIssues,
-=======
-  getAllIssues: getAllIssues,
->>>>>>> dc0da3cbd7d03b99523b90e8ad9c4cb3dc271d1e
   getIssue: getIssue,
   postIssue: postIssue,
   updateIssue: updateIssue,

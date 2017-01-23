@@ -15,7 +15,6 @@ module.exports = function(config) {
         // List of files/patterns to load in the browser.
         files: [
             './test/components/issueTable.test.jsx',
-            './test/components/popModal.test.jsx',
             './test/components/addModal.test.jsx',
             './test/components/editModal.test.jsx',
             './test/reducers/updateIssueReducer.test.js',
