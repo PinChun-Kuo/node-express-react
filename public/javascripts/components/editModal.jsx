@@ -81,7 +81,11 @@ export default class editModal extends React.Component {
       };
 
       this.props.editIssueAction(newIssue);
-      hashHistory.push('/');
+      if (process.env.NODE_ENV === 'development') {
+        hashHistory.push('/');
+      } else {
+        browserHistory.push('/');
+      }
     }
   }
 
