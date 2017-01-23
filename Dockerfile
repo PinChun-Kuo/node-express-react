@@ -16,12 +16,6 @@ RUN apt-get install npm -y
 RUN curl -SL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 RUN apt-get install nodejs -y
 
-# Install package for all environment first
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-
-ARG NODE_ENV
-
 # Create project directory
 RUN mkdir -p /usr/project/issuetracker
 WORKDIR /usr/project/issuetracker

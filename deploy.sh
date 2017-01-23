@@ -25,4 +25,4 @@ fi
 docker run -P --name issue_tracker -p 3000:3000 --link issue_postgres_pro:postgres -e POSTGRES_DB=issueTracker -d chloe/issue_tracker
 
 # start the server
-docker exec -it issue_tracker /bin/bash -c "npm run start"
+docker exec -it issue_tracker /bin/bash -c "npm install; npm run start"
