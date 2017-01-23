@@ -15,7 +15,7 @@ function returnResult(req, res, error, result) {
 }
 
 router.get('/', function(req, res) {
-  issue.getAllIssues(function(error, result) {
+  issue.getIssues(function(error, result) {
     returnResult(req, res, error, result);
   });
 });

@@ -2,7 +2,7 @@ import issueTable from '../models/issueTable';
 
 require('../models/connectDB');
 
-function getAllIssues(callback) {
+function getIssues(callback) {
   issueTable.findAll({
     order: 'seq',
     raw: true
@@ -18,14 +18,12 @@ function getIssue(data, callback) {
     where: {
       seq: data.seq
     }
-  }).then(function(issues) {
-    if (issues.length === 0) {
-      callback(true, 'There is no data.');
-    } else {
-      callback(false, issues);
-    }
+  }).then((issue) => {
+    callback(false, issue.dataValues);
+  }).catch((error) => {
+    callback(true, 'Fail to fetch special issue.');
   });
-}
+ }
 
 function postIssue(data, callback) {
   issueTable.create(data).then((issue) => {
@@ -43,7 +41,7 @@ function postIssue(data, callback) {
       postIssue: postIssueData
     };
     callback(false, result);
-  }).catch(() => {
+  }).catch((error) => {
     callback(true, 'Fail to insert issue.');
   });
 }
@@ -61,7 +59,7 @@ function updateIssue(data, callback) {
     }
   }).then(() => {
     callback(false, 'Successfully update the issue.');
-  }).catch(() => {
+  }).catch((error) => {
     callback(true, 'Fail to update issue.');
   });
 }
@@ -73,13 +71,13 @@ function deleteIssue(data, callback) {
     }
   }).then(() => {
     callback(false, 'Successfully delete an issue.');
-  }).catch(() => {
+  }).catch((error) => {
     callback(true, 'Fail to delete issue.');
   });
 }
 
 module.exports = {
-  getAllIssues: getAllIssues,
+  getIssues: getIssues,
   getIssue: getIssue,
   postIssue: postIssue,
   updateIssue: updateIssue,
