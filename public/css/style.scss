@@ -6,12 +6,8 @@ body {
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
+  background: url('http://www.shijuew.com/uploadfile/2013/1125/20131125043037692.jpg');
   #root {
-    .table-bordered {
-      width: auto;
-      margin-top: 15px;
-      border: solid #fff 0px;
-    }
     button, .modalBackground .modalBox form .submitBtn {
       padding: 5px 20px;
       border: solid #000 1px;
@@ -42,7 +38,6 @@ body {
         }
         .editBtn, .deleteBtn {
           width: 80px;
-          background: #fff;
           border: solid #fff 0px;
         }
       }
@@ -51,19 +46,18 @@ body {
       position: absolute;
       top: 0;
       left: 0;
-      background: rgba(255, 255, 255, 0.4);
       width: 100vw;
       height: 100vh;
       .modalBox {
         position: absolute;
         left: calc(50% - 350px);
         top: 100px;
-        background-color: #fff;
         width: 700px;
         height: 400px;
         padding: 10px 20px;
         border: 1px solid #444444;
         border-radius: 3px;
+        box-shadow: 15px 15px 20px #888888;
         h1 {
           font-style: italic;
           span {
@@ -74,18 +68,16 @@ body {
           }
         }
         .closeBtn {
-          width: 22px;
+          width: 120px;
           position: absolute;
-          top: 1px;
-          right: -2px;
-          padding: 0px;
-          border-color: rgba(255, 255, 255, 0);
-          background-color: rgba(255, 255, 255, 0);
+          top: 337px;
+          left: 180px;
         }
         form {
           div {
             margin: 15px 5px;
             input {
+              background: transparent;
               width: 250px;
               border-radius: 2px;
               letter-spacing: 2px;
@@ -98,7 +90,7 @@ body {
           .submitBtn {
             width: 120px;
             position: absolute;
-            right: calc(50% - 40px);
+            left: calc(50% + 40px);
             bottom: 25px;
           }
         }

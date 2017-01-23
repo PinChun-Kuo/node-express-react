@@ -16,8 +16,8 @@ module.exports = function(config) {
         files: [
             './test/components/issueTable.test.jsx',
             './test/components/popModal.test.jsx',
-            // './test/actions/issueTableAction.test.js',
-            './test/reducers/popModalReducer.test.js',
+            './test/components/addModal.test.jsx',
+            './test/components/editModal.test.jsx',
             './test/reducers/updateIssueReducer.test.js',
             './test/reducers/issueTableReducer.test.js',
         ],
@@ -36,9 +36,8 @@ module.exports = function(config) {
         // These are configured in the preprocessors block of the configuration file:
         preprocessors: {
             './test/components/issueTable.test.jsx': ['webpack'],
-            './test/components/popModal.test.jsx': ['webpack'],
-            // './test/actions/issueTableAction.test.js': ['webpack'],
-            './test/reducers/popModalReducer.test.js': ['webpack'],
+            './test/components/addModal.test.jsx': ['webpack'],
+            './test/components/editModal.test.jsx': ['webpack'],
             './test/reducers/updateIssueReducer.test.js': ['webpack'],
             './test/reducers/issueTableReducer.test.js': ['webpack'],
         },
