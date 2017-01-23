@@ -25,4 +25,3 @@ ADD ./build.sh /usr/project/issuetracker
 RUN /bin/bash -c "./build.sh"
 
 EXPOSE 3000
-CMD sh installPackage.sh
