@@ -4,6 +4,7 @@ import { tableActionaType } from '../../public/javascripts/actions/issueTableAct
 
 const initState = {
   issues: [],
+  successMsg: '',
   errorMsg: ''
 };
 
@@ -15,6 +16,7 @@ const issues = [
 
 const oldState = {
   issues: issues,
+  successMsg: '',
   errorMsg: ''
 };
 
@@ -43,9 +45,11 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
   describe('tableData reducer output', () => {
     it('should handle get issues.', () => {
       const newState = issueTableReducer(initState, {
-        type: tableActionaType.getIssuesSuccess,
+        type: tableActionaType.getIssues,
         payload: {
-          issues: issues
+          issues: issues,
+          successMsg: '',
+          errorMsg: ''
         }
       });
 
@@ -59,6 +63,7 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
         newState.issues[i].owner.should.be.equal(issues[i].owner);
         newState.issues[i].priority.should.be.equal(issues[i].priority);
       }
+      newState.successMsg.should.be.equal('');
       newState.errorMsg.should.be.equal('');
     });
 
@@ -66,7 +71,9 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
       const newState = issueTableReducer(oldState, {
         type: tableActionaType.addIssue,
         payload: {
-          addIssue: addIssue
+          addIssue: addIssue,
+          successMsg: 'Successfully insert an issue.',
+          errorMsg: ''
         }
       });
       const addIssueIndex = newState.issues.length - 1;
@@ -79,6 +86,7 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
       newState.issues[addIssueIndex].title.should.be.equal(addIssue.title);
       newState.issues[addIssueIndex].owner.should.be.equal(addIssue.owner);
       newState.issues[addIssueIndex].priority.should.be.equal(addIssue.priority);
+      newState.successMsg.should.be.equal('Successfully insert an issue.');
       newState.errorMsg.should.be.equal('');
     });
 
@@ -86,7 +94,9 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
       const newState = issueTableReducer(oldState, {
         type: tableActionaType.editIssue,
         payload: {
-          editIssue: editIssue
+          editIssue: editIssue,
+          successMsg: 'Successfully update the issue.',
+          errorMsg: ''
         }
       });
 
@@ -107,6 +117,7 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
       newState.issues[index].title.should.be.equal(editIssue.title);
       newState.issues[index].owner.should.be.equal(editIssue.owner);
       newState.issues[index].priority.should.be.equal(editIssue.priority);
+      newState.successMsg.should.be.equal('Successfully update the issue.');
       newState.errorMsg.should.be.equal('');
     });
 
@@ -114,12 +125,15 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
       const newState = issueTableReducer(oldState, {
         type: tableActionaType.deleteIssue,
         payload: {
-          seq: deleteSeq
+          seq: deleteSeq,
+          successMsg: 'Successfully delete an issue.',
+          errorMsg: ''
         }
       });
 
       should.exist(newState);
       newState.issues.length.should.be.equal(oldState.issues.length - 1);
+      newState.successMsg.should.be.equal('Successfully delete an issue.');
       newState.errorMsg.should.be.equal('');
     });
 
@@ -133,15 +147,16 @@ describe('public/javascripts/reducers/issueTableReducer.js Spec', () => {
 
       should.exist(newState);
       newState.issues.length.should.be.equal(oldState.issues.length);
+      newState.successMsg.should.be.equal('');
       newState.errorMsg.should.be.equal(errorMsg);
     });
 
     it('should handle default.', () => {
       const newState = issueTableReducer(oldState, {});
-
       should.exist(newState);
       newState.issues.length.should.be.equal(oldState.issues.length);
-      newState.errorMsg.should.be.equal(oldState.errorMsg);
+      newState.successMsg.should.be.equal('');
+      newState.errorMsg.should.be.equal('');
     });
   });
 });
