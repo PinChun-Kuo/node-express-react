@@ -8,6 +8,11 @@ export default class issueTable extends React.Component {
   }
 
   componentWillMount() {
+    this.props.renderData.successMsg = '';
+    this.props.renderData.errorMsg = '';
+  }
+
+  componentDidMount() {
     this.props.getIssues();
   }
 
