@@ -18,7 +18,7 @@ export default function(state = initValue, action) {
     case tableActionaType.addIssue: {
       return {
         issues: [...state.issues, action.payload.addIssue],
-        successMsg: action.payload.successMsg,
+        successMsg: '',
         errorMsg: ''
       };
     }
@@ -31,7 +31,7 @@ export default function(state = initValue, action) {
         }
         return issue;
       });
-      newState.successMsg = action.payload.successMsg;
+      newState.successMsg = '';
       newState.errorMsg = '';
       return newState;
     }

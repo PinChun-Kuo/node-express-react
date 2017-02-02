@@ -13,6 +13,8 @@ const totalActions = {
 function mapStateToProps(state, ownProps) {
   return {
     updateIssue: state.updateIssue.issue,
+    successMsg: state.updateIssue.successMsg,
+    errorMsg: state.updateIssue.errorMsg,
     seq: Number(ownProps.params.issueSeq)
   };
 }

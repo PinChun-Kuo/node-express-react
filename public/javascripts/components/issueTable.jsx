@@ -24,13 +24,13 @@ export default class issueTable extends React.Component {
       empty = true;
     }
 
-    // if (this.props.renderData.successMsg !== '') {
-    //   alert(this.props.renderData.successMsg);
-    // }
-    //
-    // if (this.props.renderData.errorMsg !== '') {
-    //   alert(this.props.renderData.errorMsg);
-    // }
+    if (this.props.renderData.successMsg !== '') {
+      alert(this.props.renderData.successMsg);
+    }
+
+    if (this.props.renderData.errorMsg !== '') {
+      alert(this.props.renderData.errorMsg);
+    }
 
     const tableDataRows = issues.map(number => (
       <tr key={number.seq}>

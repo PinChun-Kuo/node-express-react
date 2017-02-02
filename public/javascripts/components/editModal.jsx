@@ -42,6 +42,14 @@ export default class editModal extends React.Component {
     this.setState({ titleValue: nextProps.updateIssue.title });
     this.setState({ ownerValue: nextProps.updateIssue.owner });
     this.setState({ priorityValue: nextProps.updateIssue.priority });
+
+    if (nextProps.successMsg !== '' || nextProps.errorMsg !== '') {
+      if (process.env.NODE_ENV === 'development') {
+        hashHistory.push('/');
+      } else {
+        browserHistory.push('/');
+      }
+    }
   }
 
   handleStatusChange(e) {
@@ -81,11 +89,6 @@ export default class editModal extends React.Component {
       };
 
       this.props.editIssueAction(newIssue);
-      if (process.env.NODE_ENV === 'development') {
-        hashHistory.push('/');
-      } else {
-        browserHistory.push('/');
-      }
     }
   }
 
@@ -98,6 +101,14 @@ export default class editModal extends React.Component {
   }
 
   render() {
+    if (this.props.successMsg !== '') {
+      alert(this.props.successMsg);
+    }
+
+    if (this.props.errorMsg !== '') {
+      alert(this.props.errorMsg);
+    }
+
     return (
       <div className='modalBackground'>
         <div className='modalBox'>
@@ -143,6 +154,8 @@ editModal.propTypes = {
     priority: React.PropTypes.string
   }),
   seq: React.PropTypes.number,
+  successMsg: React.PropTypes.string,
+  errorMsg: React.PropTypes.string,
   getIssue: React.PropTypes.func,
   editIssueAction: React.PropTypes.func
 };

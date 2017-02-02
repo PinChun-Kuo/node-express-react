@@ -15,6 +15,20 @@ export default function(state = initValue, action) {
         errorMsg: ''
       };
     }
+    case tableActionaType.addIssue: {
+      return {
+        issue: {},
+        successMsg: action.payload.successMsg,
+        errorMsg: ''
+      };
+    }
+    case tableActionaType.editIssue: {
+      return {
+        issue: {},
+        successMsg: action.payload.successMsg,
+        errorMsg: ''
+      };
+    }
     case tableActionaType.actionFail: {
       return {
         issue: {},

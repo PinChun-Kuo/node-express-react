@@ -30,6 +30,16 @@ export default class addModal extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.successMsg !== '' || nextProps.errorMsg !== '') {
+      if (process.env.NODE_ENV === 'development') {
+        hashHistory.push('/');
+      } else {
+        browserHistory.push('/');
+      }
+    }
+  }
+
   handleStatusChange(e) {
     this.setState({ statusValue: e.target.value });
   }
@@ -66,11 +76,6 @@ export default class addModal extends React.Component {
       };
 
       this.props.addIssueAction(newIssue);
-      if (process.env.NODE_ENV === 'development') {
-        hashHistory.push('/');
-      } else {
-        browserHistory.push('/');
-      }
     }
   }
 
@@ -83,6 +88,14 @@ export default class addModal extends React.Component {
   }
 
   render() {
+    if (this.props.successMsg !== '') {
+      alert(this.props.successMsg);
+    }
+
+    if (this.props.errorMsg !== '') {
+      alert(this.props.errorMsg);
+    }
+
     return (
       <div className='modalBackground'>
         <div className='modalBox'>
@@ -126,5 +139,7 @@ addModal.propTypes = {
     owner: React.PropTypes.string,
     priority: React.PropTypes.string
   }),
-  addIssueAction: React.PropTypes.func,
+  successMsg: React.PropTypes.string,
+  errorMsg: React.PropTypes.string,
+  addIssueAction: React.PropTypes.func
 };
