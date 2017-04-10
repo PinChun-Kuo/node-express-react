@@ -8,11 +8,28 @@ const initState = {
   errorMsg: ''
 };
 
-const issues = [
-  { seq: 1, status: 'Open', category: 'category1', title: 'title1', owner: 'Owner1', priority: 'P1' },
-  { seq: 2, status: 'Open', category: 'category2', title: 'title2', owner: 'Owner2', priority: 'P2' },
-  { seq: 3, status: 'Close', category: 'category3', title: 'title3', owner: 'Owner3', priority: 'P3' }
-];
+const issues = [{
+  seq: 1,
+  status: 'Open',
+  category: 'category1',
+  title: 'title1',
+  owner: 'Owner1',
+  priority: 'P1'
+}, {
+  seq: 2,
+  status: 'Open',
+  category: 'category2',
+  title: 'title2',
+  owner: 'Owner2',
+  priority: 'P2'
+}, {
+  seq: 3,
+  status: 'Close',
+  category: 'category3',
+  title: 'title3',
+  owner: 'Owner3',
+  priority: 'P3'
+}];
 
 const oldState = {
   issues: issues,
